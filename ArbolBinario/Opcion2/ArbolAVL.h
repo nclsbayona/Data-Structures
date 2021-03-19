@@ -15,7 +15,6 @@ class ArbolAVL{
         NodoAVL<T>* leftRotation(NodoAVL<T>*&node, bool update=false);
     public:
         bool balanced();
-        bool balance(NodoAVL<T>*& node);
         ArbolAVL(T data);
         ArbolAVL(NodoAVL<T>*& head);
         ~ArbolAVL();

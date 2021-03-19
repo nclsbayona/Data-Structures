@@ -31,7 +31,6 @@ void ArbolAVL<T>::setHead(NodoAVL<T>*& head){
 template <class T>
 NodoAVL<T>* ArbolAVL<T>::insertNode(NodoAVL<T>*& node){
     if (this->insertNode(this->head, node)){
-        this->balance(node);
         return node;
     }
     else
@@ -152,7 +151,6 @@ bool ArbolAVL<T>::removeNode(NodoAVL<T>*& node){
         this->removeNodeGreater(node);
     else
         this->removeNodeMinor(node);
-    this->balance(padre);
     return true;
 }
 
@@ -184,7 +182,6 @@ bool ArbolAVL<T>::removeNode(T node){
         this->removeNodeGreater(nodo);
     else
         this->removeNodeMinor(nodo);
-    this->balance(padre);
     return true;
 }
 
@@ -381,66 +378,4 @@ NodoAVL<T>* ArbolAVL<T>::rightRotation (NodoAVL<T>*& node, bool update){
         
     }
     return nodoP;
-}
-
-template <class T> 
-bool ArbolAVL<T>::balance(NodoAVL<T>*& node){
-    if (this->balanced())
-        return 1;
-    NodoAVL<T>* ft=this->searchNodeFather(node);
-    NodoAVL<T>* lastFT=NULL;
-    while (ft!=lastFT){
-        if (ft->getLeft()||ft->getRight()){
-            if (ft->getLeft()&&!ft->getRight()){
-                if (!this->nodeBalanced(ft)){
-                    //NodoAVL<T>* n=
-                    this->rightRotation(ft, true);
-                    ft=this->searchNodeFather(ft);
-                }
-            }
-            
-            else if (!ft->getLeft()&&ft->getRight()){
-                if (!this->nodeBalanced(ft)){
-                    //NodoAVL<T>* n=
-                    this->leftRotation(ft, true);
-                    ft=this->searchNodeFather(ft);
-                }
-            }
-                    
-            else if (ft->getLeft()&&ft->getRight()){
-                NodoAVL<T>* n;
-                if (!this->nodeBalanced(ft)){
-                    if (!this->nodeBalanced(ft->getLeft())){
-                        n=ft->getLeft();
-                        if (!n->getLeft())
-                            this->rightRotation(n);
-                        else if (!n->getRight())
-                            this->composedRotation1(n);
-                        else if (n->getLeft()->height()-n->getRight()->height()>0)
-                            this->rightRotation(n);
-                        else
-                            this->composedRotation1(n);
-                    }
-                    else if (!this->nodeBalanced(ft->getRight())){
-                        n=ft->getRight();
-                        if (!n->getLeft())
-                            this->leftRotation(n);
-                        else if (!n->getRight())
-                            this->composedRotation2(n);
-                        else if (n->getLeft()->height()-n->getRight()->height()<0)
-                            this->leftRotation(n);
-                        else
-                            this->composedRotation2(n);
-                    }
-                    ft=this->searchNodeFather(ft);
-                }
-            }
-            
-        }
-        lastFT=ft;
-        ft=this->searchNodeFather(ft);
-    }
-    if (!ft)
-        return 0;
-    return 1;
 }

@@ -21,13 +21,6 @@ int main(){
     arbol->insertNode(right2);
     //arbol->insertNode(right1);
     //arbol->insertNode(right3);
-    cout<<'\n'<<"Impresion\n"<<arbol->printTree()<<"\nIn order: "<<arbol->inOrder();
-    cout<<"\nPre order: "<<arbol->preOrder();
-    cout<<"\nPost order: "<<arbol->postOrder();
-    cout<<"\nLevel order: "<<arbol->levelOrder();
-    cout<<'\n'<<arbol->printTree();
-    cout<<"\nAltura "<<left->getData()<<": "<<left->height();
-    cout<<"\nAltura arbol: "<<arbol->height();
     NodoAVL<T>* ft=arbol->searchNodeFather((T)(15));
     cout<<"\nBusqueda en arbol padre "<<head->getData()<<": "<<(arbol->searchNodeFather(arbol->getHead()))->getData();
     cout<<"\nEliminando nodo \'"<<((T)(15))<<"\': "<<arbol->removeNode((T)(15))<<'\n'<<arbol->printTree();
@@ -36,5 +29,12 @@ int main(){
     cout<<"\nBalanceado"<<": "<<(arbol->balanced());
     cout<<"\nHead "<<arbol->getHead()->toString(true)<<"\n";
     cout<<"\nBalanceado"<<": "<<(arbol->balanced());
+    cout<<'\n'<<"Impresion\n"<<arbol->printTree()<<"\nIn order: "<<arbol->inOrder();
+    cout<<"\nPre order: "<<arbol->preOrder();
+    cout<<"\nPost order: "<<arbol->postOrder();
+    cout<<"\nLevel order: "<<arbol->levelOrder();
+    cout<<'\n'<<arbol->printTree();
+    cout<<"\nAltura "<<left->getData()<<": "<<left->height();
+    cout<<"\nAltura arbol: "<<arbol->height();
     return 0;
 }
