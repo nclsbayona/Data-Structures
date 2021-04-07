@@ -1,4 +1,5 @@
 #include "ArboLQUAD.h"
+#include <iostream>
 
 template <class T>
 ArbolQUAD<T>::ArbolQUAD(T data1, T data2)
@@ -28,40 +29,54 @@ template <class T>
 bool ArbolQUAD<T>::insertNodeR(NodoQUAD<T> *toCompare, NodoQUAD<T> *node)
 {
     NodoQUAD<T> *ft;
+    std::cout<<node->toString(true)<<' '<<toCompare->toString(true);
     int cmp = toCompare->compareTo(node);
+    std::cout<<cmp<<'\n';
     if (cmp == -2)
     {
         ft = toCompare->getDownLeft();
         if (!ft)
+        {
             toCompare->setDownLeft(node);
+            return true;
+        }
         else
-            this->insertNodeR(ft, node);
+            return this->insertNodeR(ft, node);
     }
     else if (cmp == -1)
     {
         ft = toCompare->getDownRight();
         if (!ft)
+        {
             toCompare->setDownRight(node);
+            return true;
+        }
         else
-            this->insertNodeR(ft, node);
+            return this->insertNodeR(ft, node);
     }
 
     else if (cmp == 1)
     {
         ft = toCompare->getUpLeft();
         if (!ft)
+        {
             toCompare->setUpLeft(node);
+            return true;
+        }
         else
-            this->insertNodeR(ft, node);
+            return this->insertNodeR(ft, node);
     }
 
     else if (cmp == 2)
     {
         ft = toCompare->getUpRight();
         if (!ft)
+        {
             toCompare->setUpRight(node);
+            return true;
+        }
         else
-            this->insertNodeR(ft, node);
+            return this->insertNodeR(ft, node);
     }
     return false;
 }
@@ -79,6 +94,7 @@ template <class T>
 NodoQUAD<T> *ArbolQUAD<T>::insertNode(T data1, T data2)
 {
     NodoQUAD<T> *c = new NodoQUAD<T>(data1, data2);
+    std::cout<<this->insertNodeR(this->head, c)<<'\n';
     if (this->insertNodeR(this->head, c))
         return c;
     else

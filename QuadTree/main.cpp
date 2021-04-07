@@ -10,10 +10,10 @@ int main(){
     arbol->insertNode(left);
     arbol->insertNode(right1);
     arbol->insertNode(right2);
-    arbol->insertNode((T)(70), (T)(80));
-    arbol->insertNode((T)(115), (T)(80));
+    arbol->insertNode((T)(70), (T)(81));
+    /*arbol->insertNode((T)(115), (T)(80));
     arbol->insertNode((T)(122), (T)(80));
-    arbol->insertNode((T)(87), (T)(80));
+    arbol->insertNode((T)(87), (T)(80));*/
     cout<<'\n'<<'\n'<<arbol->printTree();
     /*cout<<arbol->inOrder()<<'\n';
     arbol->removeNode(right1);
