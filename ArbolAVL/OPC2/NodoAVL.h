@@ -1,6 +1,7 @@
 #ifndef _NODOAVL_H
 #define _NODOAVL_H
 #include <string>
+#include <list>
 template <class T>
 class NodoAVL{
     private:
@@ -25,9 +26,14 @@ class NodoAVL{
         int compareTo(NodoAVL<T>*& c);
         std::string toString(int level=0, std::string car="Head ");
         std::string toString(bool unique);
-        std::string inOrder();
+        std::list<NodoAVL<T>*> inOrder();
+        std::string inOrder(bool string);
         std::string preOrder();
         std::string postOrder();
+        NodoAVL<T>* composedRotation1();
+        NodoAVL<T>* composedRotation2();
+        NodoAVL<T>* rightRotation();
+        NodoAVL<T>* leftRotation();
 };
 #include "NodoAVL.hxx"
 #endif

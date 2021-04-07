@@ -1,19 +1,19 @@
-#include "NodoAVL.h"
+#include "NodoBinarioOrdenado.h"
 
 template <class T>
-T NodoAVL<T>::getData(){
+T NodoBinarioOrdenado<T>::getData(){
     return this->data;
 }
 
 template <class T>
-NodoAVL<T>::NodoAVL(T data){
+NodoBinarioOrdenado<T>::NodoBinarioOrdenado(T data){
     this->left=NULL;
     this->right=NULL;
     this->data=data;
 }
 
 template <class T>
-NodoAVL<T>::~NodoAVL(){
+NodoBinarioOrdenado<T>::~NodoBinarioOrdenado(){
     if (this->left)
         delete this->left;
     if (this->right)
@@ -21,32 +21,32 @@ NodoAVL<T>::~NodoAVL(){
 }
 
 template<class T>
-NodoAVL<T>* NodoAVL<T>::getLeft(){
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::getLeft(){
     return this->left;
 }
 
 template <class T>
-NodoAVL<T>* NodoAVL<T>::getRight(){
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::getRight(){
     return this->right;
 }
 
 template <class T>
-void NodoAVL<T>::setData(T data){
+void NodoBinarioOrdenado<T>::setData(T data){
     this->data=data;
 }
 
 template <class T>
-void NodoAVL<T>::setLeft(NodoAVL<T>*& left){
+void NodoBinarioOrdenado<T>::setLeft(NodoBinarioOrdenado<T>*& left){
     this->left=left;
 }
 
 template <class T>
-void NodoAVL<T>::setRight(NodoAVL<T>*& right){
+void NodoBinarioOrdenado<T>::setRight(NodoBinarioOrdenado<T>*& right){
     this->right=right;
 }
 
 template <class T>
-int NodoAVL<T>::compareTo(T data){
+int NodoBinarioOrdenado<T>::compareTo(T data){
     if(this->data>data)
         return 1;
     else if(this->data<data) 
@@ -56,7 +56,7 @@ int NodoAVL<T>::compareTo(T data){
 }
 
 template <class T>
-int NodoAVL<T>::compareTo(NodoAVL<T>*& c){
+int NodoBinarioOrdenado<T>::compareTo(NodoBinarioOrdenado<T>*& c){
     if(this->data>c->getData())
         return 1;
     else if(this->data<c->getData()) 
@@ -66,7 +66,7 @@ int NodoAVL<T>::compareTo(NodoAVL<T>*& c){
 }
 
 template <class T>
-std::string NodoAVL<T>::toString(int level, std::string car){
+std::string NodoBinarioOrdenado<T>::toString(int level, std::string car){
     std::string ret="";
     for (int i=0; i<level; i++)
         ret+="\t\t";
@@ -83,7 +83,7 @@ std::string NodoAVL<T>::toString(int level, std::string car){
 }
 
 template <class T>
-std::string NodoAVL<T>::toString(bool unique){
+std::string NodoBinarioOrdenado<T>::toString(bool unique){
     std::string ret="- ";
     ret+="\'";
     try{
@@ -97,7 +97,7 @@ std::string NodoAVL<T>::toString(bool unique){
 }
 
 template <class T>
-std::string NodoAVL<T>::inOrder(){
+std::string NodoBinarioOrdenado<T>::inOrder(){
     std::string ret="";
     if (this->left!=NULL)
         ret+=this->left->inOrder();
@@ -108,7 +108,7 @@ std::string NodoAVL<T>::inOrder(){
 }
 
 template <class T>
-std::string NodoAVL<T>::preOrder(){
+std::string NodoBinarioOrdenado<T>::preOrder(){
     std::string ret="";    
     ret+=this->toString(true);
     if (this->left!=NULL)
@@ -119,7 +119,7 @@ std::string NodoAVL<T>::preOrder(){
 }
 
 template <class T>
-std::string NodoAVL<T>::postOrder(){
+std::string NodoBinarioOrdenado<T>::postOrder(){
     std::string ret="";
     if (this->left!=NULL)
         ret+=this->left->postOrder();
@@ -130,8 +130,8 @@ std::string NodoAVL<T>::postOrder(){
 }
 
 template <class T>
-NodoAVL<T>* NodoAVL<T>::subMinor(){
-    NodoAVL<T>* ret=this;
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::subMinor(){
+    NodoBinarioOrdenado<T>* ret=this;
     if (!this->right)
         return ret;
     ret=this->right;
@@ -141,8 +141,8 @@ NodoAVL<T>* NodoAVL<T>::subMinor(){
 }
 
 template <class T>
-NodoAVL<T>* NodoAVL<T>::subGreater(){
-    NodoAVL<T>* ret=this;
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::subGreater(){
+    NodoBinarioOrdenado<T>* ret=this;
     if (!this->left)
         return ret;
     ret=this->left;
@@ -152,9 +152,9 @@ NodoAVL<T>* NodoAVL<T>::subGreater(){
 }
 
 template <class T>
-NodoAVL<T>* NodoAVL<T>::removeSubMinor(){
-    NodoAVL<T>* ret=this;
-    NodoAVL<T>* ret2=NULL;
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::removeSubMinor(){
+    NodoBinarioOrdenado<T>* ret=this;
+    NodoBinarioOrdenado<T>* ret2=NULL;
     if (!this->right)
         return ret2;
     ret=this->right;
@@ -172,9 +172,9 @@ NodoAVL<T>* NodoAVL<T>::removeSubMinor(){
 }
 
 template <class T>
-NodoAVL<T>* NodoAVL<T>::removeSubGreater(){
-    NodoAVL<T>* ret=this;
-    NodoAVL<T>* ret2=NULL;
+NodoBinarioOrdenado<T>* NodoBinarioOrdenado<T>::removeSubGreater(){
+    NodoBinarioOrdenado<T>* ret=this;
+    NodoBinarioOrdenado<T>* ret2=NULL;
     if (!this->left)
         return ret2;
     ret=this->left;
@@ -192,7 +192,7 @@ NodoAVL<T>* NodoAVL<T>::removeSubGreater(){
 }
 
 template <class T>
-int NodoAVL<T>::height(int acu){
+int NodoBinarioOrdenado<T>::height(int acu){
     if (!(this->left||this->right))
         return acu;
     int height=acu;

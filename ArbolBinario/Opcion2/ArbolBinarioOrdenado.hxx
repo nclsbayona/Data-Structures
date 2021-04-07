@@ -1,17 +1,17 @@
-#include "ArbolAVL.h"
+#include "ArbolBinarioOrdenado.h"
  
 template <class T>
-ArbolAVL<T>::ArbolAVL(NodoAVL<T> *&head){
+ArbolBinarioOrdenado<T>::ArbolBinarioOrdenado(NodoBinarioOrdenado<T> *&head){
     this->head=head;
 }
 
 template <class T>
-ArbolAVL<T>::ArbolAVL(T data){
-    this->head=new NodoAVL<T>(data);
+ArbolBinarioOrdenado<T>::ArbolBinarioOrdenado(T data){
+    this->head=new NodoBinarioOrdenado<T>(data);
 }
 
 template <class T>
-ArbolAVL<T>::~ArbolAVL(){
+ArbolBinarioOrdenado<T>::~ArbolBinarioOrdenado(){
     if (this->head){
         delete this->head;
         this->head=NULL;
@@ -19,17 +19,17 @@ ArbolAVL<T>::~ArbolAVL(){
 }
         
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::getHead(){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::getHead(){
     return this->head;
 }
 
 template <class T>
-void ArbolAVL<T>::setHead(NodoAVL<T>*& head){
+void ArbolBinarioOrdenado<T>::setHead(NodoBinarioOrdenado<T>*& head){
     this->head=head;
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::insertNode(NodoAVL<T>*& node){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::insertNode(NodoBinarioOrdenado<T>*& node){
     if (this->insertNode(this->head, node)){
         return node;
     }
@@ -38,7 +38,7 @@ NodoAVL<T>* ArbolAVL<T>::insertNode(NodoAVL<T>*& node){
 }
 
 template <class T>
-bool ArbolAVL<T>::insertNode(NodoAVL<T>* toCompare, NodoAVL<T>*& node){
+bool ArbolBinarioOrdenado<T>::insertNode(NodoBinarioOrdenado<T>* toCompare, NodoBinarioOrdenado<T>*& node){
     if (toCompare->getData()==node->getData())
         return false;
     else if (toCompare->getData()>node->getData()){
@@ -59,8 +59,8 @@ bool ArbolAVL<T>::insertNode(NodoAVL<T>* toCompare, NodoAVL<T>*& node){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::insertNode(T node){
-    NodoAVL<T>* c=new NodoAVL<T>(node);
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::insertNode(T node){
+    NodoBinarioOrdenado<T>* c=new NodoBinarioOrdenado<T>(node);
     if (this->insertNode(this->head, c)){
         return c;
     }
@@ -69,7 +69,7 @@ NodoAVL<T>* ArbolAVL<T>::insertNode(T node){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::searchNodeFather(NodoAVL<T>* searching){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::searchNodeFather(NodoBinarioOrdenado<T>* searching){
     if (!this->head)
         return NULL;
     if (this->head==searching)
@@ -78,7 +78,7 @@ NodoAVL<T>* ArbolAVL<T>::searchNodeFather(NodoAVL<T>* searching){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::searchNodeR(NodoAVL<T>* node, NodoAVL<T>*& searching){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::searchNodeR(NodoBinarioOrdenado<T>* node, NodoBinarioOrdenado<T>*& searching){
     if (!node)
         return NULL;
     if (node->getLeft()==searching||node->getRight()==searching)
@@ -102,8 +102,8 @@ NodoAVL<T>* ArbolAVL<T>::searchNodeR(NodoAVL<T>* node, NodoAVL<T>*& searching){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::searchNodeFather(T searching){
-    NodoAVL<T>* node=this->head;
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::searchNodeFather(T searching){
+    NodoBinarioOrdenado<T>* node=this->head;
     if (!node)
         return node;
     if (node->getData()==searching)
@@ -133,8 +133,8 @@ NodoAVL<T>* ArbolAVL<T>::searchNodeFather(T searching){
 }
 
 template <class T>
-bool ArbolAVL<T>::removeNode(NodoAVL<T>*& node){
-    NodoAVL<T>*padre=this->searchNodeFather(node);
+bool ArbolBinarioOrdenado<T>::removeNode(NodoBinarioOrdenado<T>*& node){
+    NodoBinarioOrdenado<T>*padre=this->searchNodeFather(node);
     if (!(node->getRight()||node->getLeft())){
         if (padre->getRight()==node){
             delete node;
@@ -155,11 +155,11 @@ bool ArbolAVL<T>::removeNode(NodoAVL<T>*& node){
 }
 
 template <class T>
-bool ArbolAVL<T>::removeNode(T node){
-    NodoAVL<T>*padre=this->searchNodeFather(node);
+bool ArbolBinarioOrdenado<T>::removeNode(T node){
+    NodoBinarioOrdenado<T>*padre=this->searchNodeFather(node);
     if (!padre)
         return 0;
-    NodoAVL<T>*nodo;
+    NodoBinarioOrdenado<T>*nodo;
     if (padre->getLeft()){
         if (padre->getLeft()->getData()==node)
             nodo=padre->getLeft();
@@ -186,17 +186,17 @@ bool ArbolAVL<T>::removeNode(T node){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::removeNodeMinor(NodoAVL<T>*& node){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::removeNodeMinor(NodoBinarioOrdenado<T>*& node){
     return node->removeSubMinor();
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::removeNodeGreater(NodoAVL<T>*& node){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::removeNodeGreater(NodoBinarioOrdenado<T>*& node){
     return node->removeSubGreater();
 }
 
 template <class T>
-std::string ArbolAVL<T>::printTree(){
+std::string ArbolBinarioOrdenado<T>::printTree(){
     if (this->head)
         return "Tree\n"+this->head->toString()+"\n";
     else
@@ -204,33 +204,33 @@ std::string ArbolAVL<T>::printTree(){
 }
 
 template <class T>
-std::string ArbolAVL<T>::inOrder(){
+std::string ArbolBinarioOrdenado<T>::inOrder(){
     return this->head->inOrder();        
 }
 
 template <class T>
-std::string ArbolAVL<T>::preOrder(){
+std::string ArbolBinarioOrdenado<T>::preOrder(){
     return this->head->preOrder();        
 }
 
 template <class T>
-std::string ArbolAVL<T>::postOrder(){
+std::string ArbolBinarioOrdenado<T>::postOrder(){
     return this->head->postOrder();        
 }
 
 template <class T>
-int ArbolAVL<T>::height(){
+int ArbolBinarioOrdenado<T>::height(){
     if (!this->head)
         return -1;
     return this->head->height();
 }
 
 template <class T>
-std::string ArbolAVL<T>::levelOrder(){
-    std::list<NodoAVL<T>*> nextLevel;
+std::string ArbolBinarioOrdenado<T>::levelOrder(){
+    std::list<NodoBinarioOrdenado<T>*> nextLevel;
     std::string levels="";
     nextLevel.push_back(this->getHead());
-    for (typename std::list<NodoAVL<T>*>::iterator it=nextLevel.begin(); it!=nextLevel.end(); advance(it, 1)){
+    for (typename std::list<NodoBinarioOrdenado<T>*>::iterator it=nextLevel.begin(); it!=nextLevel.end(); advance(it, 1)){
         try{
             if ((*it)->getData()){
                 levels+=(*it)->toString(true);
@@ -246,14 +246,14 @@ std::string ArbolAVL<T>::levelOrder(){
 }
 
 template <class T>
-bool ArbolAVL<T>::balanced(){
+bool ArbolBinarioOrdenado<T>::balanced(){
     if (!this->head)
         return 1;
     return (this->nodeBalanced(this->head));
 }
 
 template <class T>
-bool ArbolAVL<T>::nodeBalanced(NodoAVL<T>* node){
+bool ArbolBinarioOrdenado<T>::nodeBalanced(NodoBinarioOrdenado<T>* node){
     if (node->getLeft()||node->getRight()){
         if (!node->getLeft())
             if (1+node->getRight()->height()>1||1+node->getRight()->height()<-1)
@@ -275,22 +275,22 @@ bool ArbolAVL<T>::nodeBalanced(NodoAVL<T>* node){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::composedRotation1 (NodoAVL<T>*& node, bool update){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::composedRotation1 (NodoBinarioOrdenado<T>*& node, bool update){
     if (!node)
         return NULL;
     if (!this->searchNodeFather(node))
         return NULL;
-    NodoAVL<T>* n=node->getLeft();
-    NodoAVL<T>* nodoH=this->leftRotation(n);
+    NodoBinarioOrdenado<T>* n=node->getLeft();
+    NodoBinarioOrdenado<T>* nodoH=this->leftRotation(n);
     if (!nodoH)
         return NULL;
     node->setLeft(nodoH);
-    NodoAVL<T>* nodoP=this->rightRotation(node);
+    NodoBinarioOrdenado<T>* nodoP=this->rightRotation(node);
     if (update){
         if (this->head==node)
             this->setHead(nodoP);
         else{
-            NodoAVL<T>* toUpdate=this->searchNodeFather(node);
+            NodoBinarioOrdenado<T>* toUpdate=this->searchNodeFather(node);
             if (toUpdate->getRight()==node)
                 toUpdate->setRight(nodoP);
             else
@@ -302,20 +302,20 @@ NodoAVL<T>* ArbolAVL<T>::composedRotation1 (NodoAVL<T>*& node, bool update){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::composedRotation2 (NodoAVL<T>*& node, bool update){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::composedRotation2 (NodoBinarioOrdenado<T>*& node, bool update){
     if (!node)
         return NULL;
-    NodoAVL<T>* n=node->getRight();
-    NodoAVL<T>* nodoH=this->rightRotation(n);
+    NodoBinarioOrdenado<T>* n=node->getRight();
+    NodoBinarioOrdenado<T>* nodoH=this->rightRotation(n);
     if (!nodoH)
         return NULL;
     node->setRight(nodoH);
-    NodoAVL<T>* nodoP=this->leftRotation(node);
+    NodoBinarioOrdenado<T>* nodoP=this->leftRotation(node);
     if (update){
         if (this->head==node)
             this->setHead(nodoP);
         else{
-            NodoAVL<T>* toUpdate=this->searchNodeFather(node);
+            NodoBinarioOrdenado<T>* toUpdate=this->searchNodeFather(node);
             if (toUpdate->getRight()==node)
                 toUpdate->setRight(nodoP);
             else
@@ -327,14 +327,14 @@ NodoAVL<T>* ArbolAVL<T>::composedRotation2 (NodoAVL<T>*& node, bool update){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::leftRotation (NodoAVL<T>*& node, bool update){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::leftRotation (NodoBinarioOrdenado<T>*& node, bool update){
     if (!node)
         return NULL;
-    NodoAVL<T>* nodoP=node->getRight();
+    NodoBinarioOrdenado<T>* nodoP=node->getRight();
     if (!nodoP)
         return NULL;
-    NodoAVL<T>* nodoR=nodoP->getLeft();
-    NodoAVL<T>* nodoH=nodoP->getRight();
+    NodoBinarioOrdenado<T>* nodoR=nodoP->getLeft();
+    NodoBinarioOrdenado<T>* nodoH=nodoP->getRight();
     node->setRight(nodoH);
     nodoP->setLeft(node);
     nodoP->setRight(nodoR);
@@ -342,7 +342,7 @@ NodoAVL<T>* ArbolAVL<T>::leftRotation (NodoAVL<T>*& node, bool update){
         if (this->head==node)
             this->setHead(nodoP);
         else{
-            NodoAVL<T>* toUpdate=this->searchNodeFather(node);
+            NodoBinarioOrdenado<T>* toUpdate=this->searchNodeFather(node);
             if (toUpdate->getRight()==node)
                 toUpdate->setRight(nodoP);
             else
@@ -354,14 +354,14 @@ NodoAVL<T>* ArbolAVL<T>::leftRotation (NodoAVL<T>*& node, bool update){
 }
 
 template <class T>
-NodoAVL<T>* ArbolAVL<T>::rightRotation (NodoAVL<T>*& node, bool update){
+NodoBinarioOrdenado<T>* ArbolBinarioOrdenado<T>::rightRotation (NodoBinarioOrdenado<T>*& node, bool update){
     if (!node)
         return NULL;
-    NodoAVL<T>* nodoP=node->getLeft();
+    NodoBinarioOrdenado<T>* nodoP=node->getLeft();
     if (!nodoP)
         return NULL;
-    NodoAVL<T>* nodoR=nodoP->getLeft();
-    NodoAVL<T>* nodoH=nodoP->getRight();
+    NodoBinarioOrdenado<T>* nodoR=nodoP->getLeft();
+    NodoBinarioOrdenado<T>* nodoH=nodoP->getRight();
     node->setLeft(nodoH);
     nodoP->setRight(node);
     nodoP->setLeft(nodoR);
@@ -369,7 +369,7 @@ NodoAVL<T>* ArbolAVL<T>::rightRotation (NodoAVL<T>*& node, bool update){
         if (this->head==node)
             this->setHead(nodoP);
         else{
-            NodoAVL<T>* toUpdate=this->searchNodeFather(node);
+            NodoBinarioOrdenado<T>* toUpdate=this->searchNodeFather(node);
             if (toUpdate->getRight()==node)
                 toUpdate->setRight(nodoP);
             else

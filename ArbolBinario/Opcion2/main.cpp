@@ -1,14 +1,14 @@
-#include "ArbolAVL.h"
+#include "ArbolBinarioOrdenado.h"
 #include <iostream>
 using namespace std;
 int main(){
     typedef unsigned char T;
-    NodoAVL<T>* head=new NodoAVL<T>((T)(85));
-    ArbolAVL<T>* arbol=new ArbolAVL<T>(head);
-    NodoAVL<T>* left=new NodoAVL<T>((T)(80));
-    NodoAVL<T>* right1=new NodoAVL<T>((T)(90));
-    NodoAVL<T>* right2=new NodoAVL<T>((T)(82));
-    NodoAVL<T>* right3=new NodoAVL<T>((T)(15));
+    NodoBinarioOrdenado<T>* head=new NodoBinarioOrdenado<T>((T)(85));
+    ArbolBinarioOrdenado<T>* arbol=new ArbolBinarioOrdenado<T>(head);
+    NodoBinarioOrdenado<T>* left=new NodoBinarioOrdenado<T>((T)(80));
+    NodoBinarioOrdenado<T>* right1=new NodoBinarioOrdenado<T>((T)(90));
+    NodoBinarioOrdenado<T>* right2=new NodoBinarioOrdenado<T>((T)(82));
+    NodoBinarioOrdenado<T>* right3=new NodoBinarioOrdenado<T>((T)(15));
     //arbol->insertNode(left);
     arbol->insertNode((T)(110));
     arbol->insertNode((T)(105));
@@ -21,7 +21,7 @@ int main(){
     arbol->insertNode(right2);
     //arbol->insertNode(right1);
     //arbol->insertNode(right3);
-    NodoAVL<T>* ft=arbol->searchNodeFather((T)(15));
+    NodoBinarioOrdenado<T>* ft=arbol->searchNodeFather((T)(15));
     cout<<"\nBusqueda en arbol padre "<<head->getData()<<": "<<(arbol->searchNodeFather(arbol->getHead()))->getData();
     cout<<"\nEliminando nodo \'"<<((T)(15))<<"\': "<<arbol->removeNode((T)(15))<<'\n'<<arbol->printTree();
     cout<<"\nEliminando nodo "<<right2->toString(true)<<": "<<arbol->removeNode(right2)<<'\n'<<arbol->printTree();
