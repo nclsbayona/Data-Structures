@@ -21,12 +21,11 @@ class ArbolQUAD{
         bool removeNode(NodoQUAD<T>* node);
         NodoQUAD<T>* searchNode(NodoQUAD<T>* node);
         std::string printTree();
-        /*std::string inOrder();
+        std::string inOrder();
         std::string preOrder();
         std::string postOrder();
-        std::string levelOrder();*/
+        /*std::string levelOrder();*/
 };
 
 #include "ArbolQUAD.hxx"
 #endif
-

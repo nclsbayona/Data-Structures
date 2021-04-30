@@ -29,9 +29,7 @@ template <class T>
 bool ArbolQUAD<T>::insertNodeR(NodoQUAD<T> *toCompare, NodoQUAD<T> *node)
 {
     NodoQUAD<T> *ft;
-    std::cout<<node->toString(true)<<' '<<toCompare->toString(true);
     int cmp = toCompare->compareTo(node);
-    std::cout<<cmp<<'\n';
     if (cmp == -2)
     {
         ft = toCompare->getDownLeft();
@@ -78,6 +76,8 @@ bool ArbolQUAD<T>::insertNodeR(NodoQUAD<T> *toCompare, NodoQUAD<T> *node)
         else
             return this->insertNodeR(ft, node);
     }
+    if (!cmp)
+        return false;
     return false;
 }
 
@@ -94,7 +94,6 @@ template <class T>
 NodoQUAD<T> *ArbolQUAD<T>::insertNode(T data1, T data2)
 {
     NodoQUAD<T> *c = new NodoQUAD<T>(data1, data2);
-    std::cout<<this->insertNodeR(this->head, c)<<'\n';
     if (this->insertNodeR(this->head, c))
         return c;
     else
@@ -176,7 +175,7 @@ bool ArbolQUAD<T>::removeNode(NodoQUAD<T> *node)
             padre->setLeft(NULL);
         delete node;
     }
-    else if ((!node->getRight()) && (node->getLeft()))
+    else if ((!node->getDownRight()) && (node->getUpLeft()))
         this->removeNodeGreater(node);
     else
         this->removeNodeMinor(node);
@@ -191,7 +190,7 @@ std::string ArbolQUAD<T>::printTree()
     else
         return " ";
 }
-/*
+
 template <class T>
 std::string ArbolQUAD<T>::inOrder(){
     return this->head->inOrder();        
@@ -207,7 +206,7 @@ std::string ArbolQUAD<T>::postOrder(){
     return this->head->postOrder();        
 }
 
-template <class T>
+/*template <class T>
 std::string ArbolQUAD<T>::levelOrder(){
     NodoQUAD<T>* left;
     NodoQUAD<T>* right;

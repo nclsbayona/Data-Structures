@@ -16,10 +16,6 @@ ArbolGeneral<T>::ArbolGeneral(T head_data){
 }
 
 template <class T>
-ArbolGeneral<T>::ArbolGeneral(){
-}
-
-template <class T>
 ArbolGeneral<T>::ArbolGeneral(NodoGeneral<T>* head){
     this->head=head;
 }
@@ -82,6 +78,7 @@ int ArbolGeneral<T>::maxHighness(NodoGeneral<T> *node, int level){
             val=this->maxHighness(*it, level+1);
             if (val>max)
                 max=val;
+            advance (it, 1);
             advance (it, 1);
         }
         return max;
@@ -238,7 +235,7 @@ std::list<std::string> ArbolGeneral<T>::postOrder(NodoGeneral<T>* node){
 template <class T>
 NodoGeneral<T> * ArbolGeneral<T>::insertNode(T father, T son){
     NodoGeneral<T>* f=this->searchNode(father);
-    if (!f)
+    if ((!f)||(this->searchNode(son)))
         return NULL;
     return f->addChild(son);
 }

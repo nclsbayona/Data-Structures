@@ -3,6 +3,9 @@
 #include "ArbolGeneral.h"
 using namespace std;
 int main(){
+    char carac="Hola"[4];
+    cout<<carac<<" ";
+    cout<<(carac>0)<<'\n';
     unsigned t0, t1;
     t0=clock();
     typedef int T;

@@ -91,12 +91,12 @@ int NodoQUAD<T>::compareTo(OrderedQUADPair<T> *data)
     // 2 si es mayor mayor
 
     if (this->data->getData1() > data->getData1() && this->data->getData2() > data->getData2())
-        return -2;
-    else if (this->data->getData1() > data->getData1() && this->data->getData2() < data->getData2())
         return -1;
-    else if (this->data->getData1() < data->getData1() && this->data->getData2() > data->getData2())
+    else if (this->data->getData1() > data->getData1() && this->data->getData2() < data->getData2())
         return 1;
-    else if (this->data->getData1() < data->getData1() && this->data->getData2() < data->getData2())
+    else if (this->data->getData1() < data->getData1() && this->data->getData2() > data->getData2())
+        return -2;
+    else if (this->data->getData2() < data->getData2())
         return 2;
     return 0;
 }
@@ -104,41 +104,14 @@ int NodoQUAD<T>::compareTo(OrderedQUADPair<T> *data)
 template <class T>
 int NodoQUAD<T>::compareTo(T data1, T data2)
 {
-    // -2 si es menor, menor
-    // -1 si es menor mayor
-    // 0 si son iguales
-    // 1 si es mayor menor
-    // 2 si es mayor mayor
-    
-    if (this->data->getData1() > data1 && this->data->getData2() > data2)
-        return 2;
-    else if (this->data->getData1() > data1 && this->data->getData2() < data2)
-        return 1;
-    else if (this->data->getData1() < data1 && this->data->getData2() > data2)
-        return -1;
-    else if (this->data->getData1() < data1 && this->data->getData2() < data2)
-        return -2;
-    return 0;
+    OrderedQUADPair<T> *l = new OrderedQUADPair<T>(data1, data2);
+    return this->compareTo(l);
 }
 
 template <class T>
 int NodoQUAD<T>::compareTo(NodoQUAD<T> *c)
 {
-    // -2 si es menor, menor
-    // -1 si es menor mayor
-    // 0 si son iguales
-    // 1 si es mayor menor
-    // 2 si es mayor mayor
-    
-    if (this->data->getData1() > c->getData()->getData1() && this->data->getData2() > c->getData()->getData2())
-        return 2;
-    else if (this->data->getData1() > c->getData()->getData1() && this->data->getData2() < c->getData()->getData2())
-        return 1;
-    else if (this->data->getData1() < c->getData()->getData1() && this->data->getData2() > c->getData()->getData2())
-        return -1;
-    else if (this->data->getData1() < c->getData()->getData1() && this->data->getData2() < c->getData()->getData2())
-        return -2;
-    return 0;
+    return this->compareTo(c->getData());
 }
 
 template <class T>
@@ -171,28 +144,37 @@ std::string NodoQUAD<T>::toString(bool unique)
     return ret;
 }
 
-/*
 template <class T>
 std::string NodoQUAD<T>::inOrder()
 {
     std::string ret = "";
-    if (this->left != NULL)
-        ret += this->left->inOrder();
+    if (this->upLeft != NULL)
+        ret += this->upLeft->inOrder();
+    if (this->upRight != NULL)
+        ret += this->upRight->inOrder();
     ret += this->toString(true);
-    if (this->right != NULL)
-        ret += this->right->inOrder();
+    if (this->downLeft != NULL)
+        ret += this->downLeft->inOrder();
+    if (this->downRight != NULL)
+        ret += this->downRight->inOrder();
+
     return ret;
 }
+
 
 template <class T>
 std::string NodoQUAD<T>::preOrder()
 {
     std::string ret = "";
     ret += this->toString(true);
-    if (this->left != NULL)
-        ret += this->left->preOrder();
-    if (this->right != NULL)
-        ret += this->right->preOrder();
+    if (this->upLeft != NULL)
+        ret += this->upLeft->preOrder();
+    if (this->upRight != NULL)
+        ret += this->upRight->preOrder();
+    if (this->downLeft != NULL)
+        ret += this->downLeft->preOrder();
+    if (this->downRight != NULL)
+        ret += this->downRight->preOrder();
     return ret;
 }
 
@@ -200,14 +182,17 @@ template <class T>
 std::string NodoQUAD<T>::postOrder()
 {
     std::string ret = "";
-    if (this->left != NULL)
-        ret += this->left->postOrder();
-    if (this->right != NULL)
-        ret += this->right->postOrder();
+    if (this->upLeft != NULL)
+        ret += this->upLeft->preOrder();
+    if (this->upRight != NULL)
+        ret += this->upRight->preOrder();
+    if (this->downLeft != NULL)
+        ret += this->downLeft->preOrder();
+    if (this->downRight != NULL)
+        ret += this->downRight->preOrder();
     ret += this->toString(true);
     return ret;
 }
-*/
 
 template <class T>
 NodoQUAD<T> *NodoQUAD<T>::subMinor()

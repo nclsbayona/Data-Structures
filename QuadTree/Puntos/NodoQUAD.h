@@ -33,9 +33,9 @@ class NodoQUAD
         int compareTo(NodoQUAD<T> *c);
         std::string toString(int level = 0, std::string car = "Head ");
         std::string toString(bool unique);
-        /*std::string inOrder();
+        std::string inOrder();
         std::string preOrder();
-        std::string postOrder();*/
+        std::string postOrder();
 };
 #include "NodoQUAD.hxx"
 #endif

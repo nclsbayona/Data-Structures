@@ -10,7 +10,6 @@ class ArbolGeneral{
     public:
         ~ArbolGeneral();
         ArbolGeneral(T head_data);
-        ArbolGeneral();
         ArbolGeneral(NodoGeneral<T>* head);
         NodoGeneral<T>* getHead();
         NodoGeneral<T>* searchNode(T data);
