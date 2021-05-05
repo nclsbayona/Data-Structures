@@ -6,11 +6,11 @@ int main(){
     Grafo<int,char> myGraph;
     myGraph.agregarArista(2,3);
     myGraph.agregarArista(2,3);
-    myGraph.agregarArista(2,4,0,1);
+    myGraph.agregarArista(2,4);
+    cout<<myGraph.printGraph();
     cout<<"Tratando de agregar 5(BIEN)"<<myGraph.agregarVertice(5)<<'\n';
     cout<<"Tratando de agregar 2(MAL)"<<myGraph.agregarVertice(2)<<'\n';
     cout<<"Tratando de buscar arista de 2 a 4 (BIEN): "<<myGraph.buscarArista(2, 4)<<'\n';
-    cout<<"Tratando de buscar arista de 4 a 2 (BIEN): "<<myGraph.buscarArista(4, 2)<<'\n';
     cout<<"Tratando de buscar arista de 2 a 1 (MAL): "<<myGraph.buscarArista(2, 1)<<'\n';
     cout<<"Tratando de buscar vertice 2 (BIEN): "<<myGraph.buscarVertice(2)<<'\n';
     cout<<"Tratando de buscar vertice 10 (MAL): "<<myGraph.buscarVertice(10)<<'\n';
