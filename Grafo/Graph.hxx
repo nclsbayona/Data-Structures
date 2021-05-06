@@ -38,6 +38,11 @@ std::string Graph<T, U>::printGraph()
     return printing;
 }
 
+template <class T, class U>
+bool Graph<T, U>::getDirigido(){
+    return this->dirigido;
+}
+
 //Vertice
 template <class T, class U>
 bool Graph<T, U>::agregarVertice(T start)

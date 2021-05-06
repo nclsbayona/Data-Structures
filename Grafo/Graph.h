@@ -13,6 +13,7 @@ class Graph{
     public:
         Graph(bool dirigido=false);
         std::string printGraph();
+        bool getDirigido();
         bool agregarArista(T start, T end, bool directed=false, U value=2);
         bool buscarArista(T start, T end, U value=0);
         bool eliminarArista(T start, T end, U value=0);
