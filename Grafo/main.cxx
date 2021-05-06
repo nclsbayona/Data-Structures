@@ -8,6 +8,7 @@ int main()
     myGraph.agregarArista(2, 3);
     myGraph.agregarArista(2, 3);
     myGraph.agregarArista(2, 4);
+    myGraph.agregarArista(2,4,1,57);
     cout << myGraph.printGraph();
     cout << "Tratando de agregar 5(BIEN)" << myGraph.agregarVertice(5) << '\n';
     cout << "Tratando de agregar 2(MAL)" << myGraph.agregarVertice(2) << '\n';
