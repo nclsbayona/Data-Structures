@@ -106,9 +106,9 @@ bool Grafo<T, U>::agregarArista(T start, T end, bool directed, U value)
     bool valid = 0;
     //IDK (2 -> Default, 1 -> Dirigido, 0 -> No dirigido)
     if (value==2 && this->dirigido)
-        value=1
+        value=1;
     else if (value==2 && !this->dirigido)
-        value=0
+        value=0;
     //
     try
     {

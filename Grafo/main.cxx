@@ -20,6 +20,7 @@ int main()
     cout << "Vertices: " << myGraph.cantidadVertices() << '\n'
          << '\n';
     cout << "Tratando de eliminar arista de 2 a 4 (BIEN): " << myGraph.eliminarArista(2, 4) << '\n';
+    cout << myGraph.printGraph();
     cout << "Tratando de eliminar arista de 10 a 2 (MAL): " << myGraph.eliminarArista(10, 2) << '\n';
     cout << "Tratando de eliminar vertice 2 (BIEN): " << myGraph.eliminarVertice(2) << '\n';
     cout << "Tratando de eliminar vertice 10 (MAL): " << myGraph.eliminarVertice(10) << '\n';
