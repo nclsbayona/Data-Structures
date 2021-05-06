@@ -101,7 +101,7 @@ int Grafo<T, U>::cantidadVertices()
 
 //Aristas
 template <class T, class U>
-bool Grafo<T, U>::agregarArista(T start, T end, U value, bool directed)
+bool Grafo<T, U>::agregarArista(T start, T end, bool directed, U value)
 {
     bool valid = 0;
     try
