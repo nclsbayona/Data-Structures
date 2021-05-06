@@ -26,7 +26,7 @@ int main()
     cout << "Tratando de eliminar vertice 10 (MAL): " << myGraph.eliminarVertice(10) << '\n';
     cout << myGraph.printGraph() << '\n';
     //New
-    cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     Grafo<int, char> myGraph2;
     myGraph2.agregarArista(1, 5, 1);
     myGraph2.agregarArista(1, 9, 1);
