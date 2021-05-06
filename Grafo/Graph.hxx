@@ -106,14 +106,14 @@ int Graph<T, U>::cantidadVertices()
 
 //Aristas
 template <class T, class U>
-bool Graph<T, U>::agregarArista(T start, T end, bool directed, U value)
+bool Graph<T, U>::agregarArista(T start, T end, U value, int directed)
 {
     bool valid = 0;
     //IDK (2 -> Default, 1 -> Dirigido, 0 -> No dirigido)
-    if (value==2 && this->dirigido)
-        value=1;
-    else if (value==2 && !this->dirigido)
-        value=0;
+    if (directed==2 && this->dirigido)
+        directed=1;
+    else if (directed==2 && !this->dirigido)
+        directed=0;
     //
     try
     {
