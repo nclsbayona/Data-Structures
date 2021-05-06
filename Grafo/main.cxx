@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Grafo.h"
+#include "Graph.h"
 using namespace std;
 int main()
 {
     cout << "Bienvenido\n\n";
-    Grafo<int, char> myGraph;
+    Graph<int> myGraph;
     myGraph.agregarArista(2, 3);
     myGraph.agregarArista(2, 3);
     myGraph.agregarArista(2, 4);
@@ -27,7 +27,7 @@ int main()
     cout << myGraph.printGraph() << '\n';
     //New
     cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-    Grafo<int, char> myGraph2;
+    Graph<int, char> myGraph2;
     myGraph2.agregarArista(1, 5, 1);
     myGraph2.agregarArista(1, 9, 1);
     myGraph2.agregarArista(2, 4, 1);

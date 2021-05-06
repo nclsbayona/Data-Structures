@@ -1,14 +1,14 @@
-#include "Grafo.h"
+#include "Graph.h"
 #include <iostream>
 template <class T, class U>
-Grafo<T, U>::Grafo(bool dirigido)
+Graph<T, U>::Graph(bool dirigido)
 {
     //Default is 0
     this->dirigido = dirigido;
 }
 
 template <class T, class U>
-std::string Grafo<T, U>::printGraph()
+std::string Graph<T, U>::printGraph()
 {
     std::string printing = "\nPeso 0 implica que no tiene peso, una lista vacía significa que es un nodo isla o un nodo sumidero\n\n";
     typedef std::map<T, std::set<U>> W;
@@ -40,7 +40,7 @@ std::string Grafo<T, U>::printGraph()
 
 //Vertice
 template <class T, class U>
-bool Grafo<T, U>::agregarVertice(T start)
+bool Graph<T, U>::agregarVertice(T start)
 {
     bool done = false;
     if (!this->buscarVertice(start))
@@ -52,7 +52,7 @@ bool Grafo<T, U>::agregarVertice(T start)
 }
 
 template <class T, class U>
-bool Grafo<T, U>::buscarVertice(T start)
+bool Graph<T, U>::buscarVertice(T start)
 {
     typedef std::map<T, std::set<U>> W;
     typename std::map<T, W>::iterator it_vertices = this->vertices_aristas.find(start);
@@ -60,7 +60,7 @@ bool Grafo<T, U>::buscarVertice(T start)
 }
 
 template <class T, class U>
-bool Grafo<T, U>::eliminarVertice(T start)
+bool Graph<T, U>::eliminarVertice(T start)
 {
     bool total = 0;
     try
@@ -89,7 +89,7 @@ bool Grafo<T, U>::eliminarVertice(T start)
 }
 
 template <class T, class U>
-int Grafo<T, U>::cantidadVertices()
+int Graph<T, U>::cantidadVertices()
 {
     typedef std::map<T, std::set<U>> W;
     typename std::map<T, W>::iterator it_vertices = this->vertices_aristas.begin();
@@ -101,7 +101,7 @@ int Grafo<T, U>::cantidadVertices()
 
 //Aristas
 template <class T, class U>
-bool Grafo<T, U>::agregarArista(T start, T end, bool directed, U value)
+bool Graph<T, U>::agregarArista(T start, T end, bool directed, U value)
 {
     bool valid = 0;
     //IDK (2 -> Default, 1 -> Dirigido, 0 -> No dirigido)
@@ -127,7 +127,7 @@ bool Grafo<T, U>::agregarArista(T start, T end, bool directed, U value)
 }
 
 template <class T, class U>
-bool Grafo<T, U>::buscarArista(T start, T end, U value)
+bool Graph<T, U>::buscarArista(T start, T end, U value)
 {
     bool exists = this->buscarVertice(start);
     try
@@ -152,7 +152,7 @@ bool Grafo<T, U>::buscarArista(T start, T end, U value)
 }
 
 template <class T, class U>
-int Grafo<T, U>::cantidadAristas()
+int Graph<T, U>::cantidadAristas()
 {
     int total = 0;
     typedef std::map<T, std::set<U>> W;
@@ -169,7 +169,7 @@ int Grafo<T, U>::cantidadAristas()
 }
 
 template <class T, class U>
-bool Grafo<T, U>::eliminarArista(T start, T end, U value)
+bool Graph<T, U>::eliminarArista(T start, T end, U value)
 {
     bool total = 0;
     if (this->buscarVertice(start) && this->buscarVertice(end) && this->buscarArista(start, end, value))
@@ -187,7 +187,7 @@ bool Grafo<T, U>::eliminarArista(T start, T end, U value)
 
 //Recorridos
 template <class T, class U>
-std::queue<T> Grafo<T, U>::DFS(T start)
+std::queue<T> Graph<T, U>::DFS(T start)
 {
     typedef typename std::map<T, std::set<U>>::reverse_iterator it;
     it it_aristas;
@@ -229,7 +229,7 @@ std::queue<T> Grafo<T, U>::DFS(T start)
 
 //BFS
 template <class T, class U>
-std::queue<T> Grafo<T, U>::BFS(T start)
+std::queue<T> Graph<T, U>::BFS(T start)
 {
     typedef typename std::map<T, std::set<U>>::iterator it;
     it it_aristas;
@@ -271,7 +271,7 @@ std::queue<T> Grafo<T, U>::BFS(T start)
 }
 
 template <class T, class U>
-std::string Grafo<T, U>::printDFS(T start)
+std::string Graph<T, U>::printDFS(T start)
 {
     std::string printing = "";
     std::queue<T> queueDFS = this->DFS(start);
@@ -287,7 +287,7 @@ std::string Grafo<T, U>::printDFS(T start)
 }
 
 template <class T, class U>
-std::string Grafo<T, U>::printBFS(T start)
+std::string Graph<T, U>::printBFS(T start)
 {
     std::string printing = "";
     std::queue<T> queueBFS = this->BFS(start);

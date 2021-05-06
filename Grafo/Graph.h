@@ -1,17 +1,17 @@
-#ifndef GRAFO_H
-#define GRAFO_H
+#ifndef Graph_H
+#define Graph_H
 #include <map>
 #include <set>
 #include <queue>
 #include <stack>
 #include <utility>
 template <class T, class U=int>
-class Grafo{
+class Graph{
     private:
         bool dirigido;
         std::map<T,std::map<T, std::set<U>>> vertices_aristas;
     public:
-        Grafo(bool dirigido=false);
+        Graph(bool dirigido=false);
         std::string printGraph();
         bool agregarArista(T start, T end, bool directed=false, U value=2);
         bool buscarArista(T start, T end, U value=0);
@@ -27,5 +27,5 @@ class Grafo{
         std::string printDFS(T start);
         std::string printBFS(T start);
 };
-#include "Grafo.hxx"
+#include "Graph.hxx"
 #endif
