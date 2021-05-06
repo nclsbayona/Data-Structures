@@ -10,7 +10,7 @@ Grafo<T, U>::Grafo(bool dirigido)
 template <class T, class U>
 std::string Grafo<T, U>::printGraph()
 {
-    std::string printing = "Peso 0 implica que no tiene peso, una lista vacía significa que es un nodo isla o un nodo sumidero\n\n";
+    std::string printing = "\nPeso 0 implica que no tiene peso, una lista vacía significa que es un nodo isla o un nodo sumidero\n\n";
     typedef std::map<T, std::set<U>> W;
     typename std::map<T, W>::iterator it_vertices = this->vertices_aristas.begin();
     typename W::iterator it_aristas;
@@ -180,6 +180,118 @@ bool Grafo<T, U>::eliminarArista(T start, T end, U value)
 }
 
 //Recorridos
-//DFS
+template <class T, class U>
+std::queue<T> Grafo<T, U>::DFS(T start)
+{
+    typedef typename std::map<T, std::set<U>>::reverse_iterator it;
+    it it_aristas;
+    std::queue<T> queueDFS;
+    std::stack<T> stackVisited;
+    int w = 0, i;
+    T top;
+    bool visited;
+    T arrayVisited[this->vertices_aristas.size()];
+    for (int i = 0; i < this->vertices_aristas.size(); ++i)
+        arrayVisited[i] = -100;
+    stackVisited.push(start);
+    while (!stackVisited.empty())
+    {
+        top = stackVisited.top();
+        stackVisited.pop();
+        visited = false;
+        for (i = 0; i < w && !visited; ++i)
+            if (arrayVisited[i] == top)
+                visited = true;
+        if (!visited)
+        {
+            queueDFS.push(top);
+            arrayVisited[w++] = top;
+            it_aristas = this->vertices_aristas[top].rbegin();
+            for (; it_aristas != this->vertices_aristas[top].rend(); it_aristas++)
+            {
+                visited = false;
+                for (i = 0; i < w && !visited; ++i)
+                    if (arrayVisited[i] == (it_aristas->first))
+                        visited = true;
+                if (!visited)
+                    stackVisited.push(it_aristas->first);
+            }
+        }
+    }
+    return queueDFS;
+}
 
 //BFS
+template <class T, class U>
+std::queue<T> Grafo<T, U>::BFS(T start)
+{
+    typedef typename std::map<T, std::set<U>>::iterator it;
+    it it_aristas;
+    std::queue<T> queueDFS;
+    std::queue<T> queueVisited;
+    int w = 0, i;
+    T top, last;
+    bool visited;
+    T arrayVisited[this->vertices_aristas.size()];
+    for (int i = 0; i < this->vertices_aristas.size(); ++i)
+        arrayVisited[i] = -100;
+    queueVisited.push(start);
+    while (!queueVisited.empty())
+    {
+        top = queueVisited.front();
+        queueVisited.pop();
+        visited = false;
+        for (i = 0; i < w && !visited; ++i)
+            if (arrayVisited[i] == top)
+                visited = true;
+        if (!visited)
+        {
+            queueDFS.push(top);
+            arrayVisited[w++] = top;
+            it_aristas = this->vertices_aristas[top].begin();
+            for (; it_aristas != this->vertices_aristas[top].end(); it_aristas++)
+            {
+                visited = false;
+                for (i = 0; i < w && !visited; ++i)
+                    if (arrayVisited[i] == (it_aristas->first))
+                        visited = true;
+                last=it_aristas->first;
+                if (!visited)
+                    queueVisited.push(it_aristas->first);
+            }
+        }
+    }
+    return queueDFS;
+}
+
+template <class T, class U>
+std::string Grafo<T, U>::printDFS(T start)
+{
+    std::string printing = "";
+    std::queue<T> queueDFS = this->DFS(start);
+    while (!queueDFS.empty())
+    {
+        printing += " ";
+        printing += std::to_string(queueDFS.front());
+        printing += " ";
+        queueDFS.pop();
+    }
+    printing += "\n\n";
+    return printing;
+}
+
+template <class T, class U>
+std::string Grafo<T, U>::printBFS(T start)
+{
+    std::string printing = "";
+    std::queue<T> queueBFS = this->BFS(start);
+    while (!queueBFS.empty())
+    {
+        printing += " ";
+        printing += std::to_string(queueBFS.front());
+        printing += " ";
+        queueBFS.pop();
+    }
+    printing += "\n\n";
+    return printing;
+}

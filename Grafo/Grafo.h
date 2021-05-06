@@ -2,6 +2,8 @@
 #define GRAFO_H
 #include <map>
 #include <set>
+#include <queue>
+#include <stack>
 #include <utility>
 template <class T, class U=int>
 class Grafo{
@@ -12,13 +14,18 @@ class Grafo{
         Grafo(bool dirigido=false);
         std::string printGraph();
         bool agregarArista(T start, T end, U value=0, bool directed=false);
+        bool buscarArista(T start, T end, U value=0);
+        bool eliminarArista(T start, T end, U value=0);
+        int cantidadAristas();
         bool agregarVertice(T start);
         bool buscarVertice(T start);
-        bool eliminarArista(T start, T end, U value=0);
         bool eliminarVertice(T start);
-        bool buscarArista(T start, T end, U value=0);
         int cantidadVertices();
-        int cantidadAristas();
+        //Recorridos
+        std::queue<T> DFS(T start);
+        std::queue<T> BFS(T start);
+        std::string printDFS(T start);
+        std::string printBFS(T start);
 };
 #include "Grafo.hxx"
 #endif
