@@ -48,6 +48,7 @@ int main()
     myGraph2.agregarArista(9, 6, 0);
     cout << myGraph2.printGraph() << '\n';
     cout << "DFS desde 8:" << myGraph2.printDFS(8) << '\n';
+    cout << "DFS desde 14:" << myGraph2.printDFS(14) << '\n';
     cout << "BFS desde 4:" << myGraph2.printBFS(4) << '\n';
     return 0;
 }

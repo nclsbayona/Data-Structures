@@ -39,7 +39,8 @@ std::string Graph<T, U>::printGraph()
 }
 
 template <class T, class U>
-bool Graph<T, U>::getDirigido(){
+bool Graph<T, U>::getDirigido()
+{
     return this->dirigido;
 }
 
@@ -110,18 +111,20 @@ bool Graph<T, U>::agregarArista(T start, T end, U value, int directed)
 {
     bool valid = 0;
     //IDK (2 -> Default, 1 -> Dirigido, 0 -> No dirigido)
-    if (directed==2 && this->dirigido)
-        directed=1;
-    else if (directed==2 && !this->dirigido)
-        directed=0;
+    if (directed == 2 && this->dirigido)
+        directed = 1;
+    else if (directed == 2 && !this->dirigido)
+        directed = 0;
     //
     try
     {
+        if (!this->buscarVertice(start))
+            this->agregarVertice(start);
+        if (!this->buscarVertice(end))
+            this->agregarVertice(end);
         if (!directed)
             this->vertices_aristas[end][start].insert(value);
         this->vertices_aristas[start][end].insert(value);
-        if (!this->buscarVertice(end))
-            this->agregarVertice(end);
         valid = 1;
     }
     catch (...)
@@ -204,28 +207,31 @@ std::queue<T> Graph<T, U>::DFS(T start)
     T arrayVisited[this->vertices_aristas.size()];
     for (int i = 0; i < this->vertices_aristas.size(); ++i)
         arrayVisited[i] = -100;
-    stackVisited.push(start);
-    while (!stackVisited.empty())
+    if (this->buscarVertice(start))
     {
-        top = stackVisited.top();
-        stackVisited.pop();
-        visited = false;
-        for (i = 0; i < w && !visited; ++i)
-            if (arrayVisited[i] == top)
-                visited = true;
-        if (!visited)
+        stackVisited.push(start);
+        while (!stackVisited.empty())
         {
-            queueDFS.push(top);
-            arrayVisited[w++] = top;
-            it_aristas = this->vertices_aristas[top].rbegin();
-            for (; it_aristas != this->vertices_aristas[top].rend(); it_aristas++)
+            top = stackVisited.top();
+            stackVisited.pop();
+            visited = false;
+            for (i = 0; i < w && !visited; ++i)
+                if (arrayVisited[i] == top)
+                    visited = true;
+            if (!visited)
             {
-                visited = false;
-                for (i = 0; i < w && !visited; ++i)
-                    if (arrayVisited[i] == (it_aristas->first))
-                        visited = true;
-                if (!visited)
-                    stackVisited.push(it_aristas->first);
+                queueDFS.push(top);
+                arrayVisited[w++] = top;
+                it_aristas = this->vertices_aristas[top].rbegin();
+                for (; it_aristas != this->vertices_aristas[top].rend(); it_aristas++)
+                {
+                    visited = false;
+                    for (i = 0; i < w && !visited; ++i)
+                        if (arrayVisited[i] == (it_aristas->first))
+                            visited = true;
+                    if (!visited)
+                        stackVisited.push(it_aristas->first);
+                }
             }
         }
     }
@@ -246,29 +252,33 @@ std::queue<T> Graph<T, U>::BFS(T start)
     T arrayVisited[this->vertices_aristas.size()];
     for (int i = 0; i < this->vertices_aristas.size(); ++i)
         arrayVisited[i] = -100;
-    queueVisited.push(start);
-    while (!queueVisited.empty())
+
+    if (this->buscarVertice(start))
     {
-        top = queueVisited.front();
-        queueVisited.pop();
-        visited = false;
-        for (i = 0; i < w && !visited; ++i)
-            if (arrayVisited[i] == top)
-                visited = true;
-        if (!visited)
+        queueVisited.push(start);
+        while (!queueVisited.empty())
         {
-            queueDFS.push(top);
-            arrayVisited[w++] = top;
-            it_aristas = this->vertices_aristas[top].begin();
-            for (; it_aristas != this->vertices_aristas[top].end(); it_aristas++)
+            top = queueVisited.front();
+            queueVisited.pop();
+            visited = false;
+            for (i = 0; i < w && !visited; ++i)
+                if (arrayVisited[i] == top)
+                    visited = true;
+            if (!visited)
             {
-                visited = false;
-                for (i = 0; i < w && !visited; ++i)
-                    if (arrayVisited[i] == (it_aristas->first))
-                        visited = true;
-                last=it_aristas->first;
-                if (!visited)
-                    queueVisited.push(it_aristas->first);
+                queueDFS.push(top);
+                arrayVisited[w++] = top;
+                it_aristas = this->vertices_aristas[top].begin();
+                for (; it_aristas != this->vertices_aristas[top].end(); it_aristas++)
+                {
+                    visited = false;
+                    for (i = 0; i < w && !visited; ++i)
+                        if (arrayVisited[i] == (it_aristas->first))
+                            visited = true;
+                    last = it_aristas->first;
+                    if (!visited)
+                        queueVisited.push(it_aristas->first);
+                }
             }
         }
     }
