@@ -28,7 +28,7 @@ int main()
     cout << myGraph.printGraph() << '\n';
     //New
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-    Graph<int, char> myGraph2;
+    Graph<int, char> myGraph2(1);
     myGraph2.agregarArista(1, 5, 0);
     myGraph2.agregarArista(1, 9, 0);
     myGraph2.agregarArista(2, 4, 0);
@@ -50,5 +50,29 @@ int main()
     cout << "DFS desde 8:" << myGraph2.printDFS(8) << '\n';
     cout << "DFS desde 14:" << myGraph2.printDFS(14) << '\n';
     cout << "BFS desde 4:" << myGraph2.printBFS(4) << '\n';
+    cout << "BFS desde 14:" << myGraph2.printBFS(14) << '\n';
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    //New 2
+    Graph<int, char> myGraph3;
+    myGraph3.agregarArista(2, 3, 0);
+    myGraph3.agregarArista(3, 4, 0);
+    myGraph3.agregarArista(4, 5, 0);
+    myGraph3.agregarArista(4, 13, 0, 1);
+    myGraph3.agregarArista(4, 15, 0);
+    myGraph3.agregarArista(4, 12, 0);
+    myGraph3.agregarArista(5, 6, 0);
+    myGraph3.agregarArista(6, 7, 0, 1);
+    cout<<myGraph3.printGraph();
+    set<int> set = myGraph3.descendientes(7);
+    cout << "Descendientes de 7\n";
+    for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
+        cout << (*it) << ' ';
+    set = myGraph3.ascendientes(7);
+    cout << "\nAscendientes de 7\n";
+    for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
+        cout << (*it) << ' ';
+    cout<<"\nGrafo conectado: "<<myGraph3.grafoConectado()<<endl;
+    cout<<myGraph3.printGraph();
+    cout<<"Cantidad campos conectados "<<myGraph3.cantidadCamposConectados()<<endl;
     return 0;
 }

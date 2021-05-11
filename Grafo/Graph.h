@@ -2,9 +2,11 @@
 #define Graph_H
 #include <map>
 #include <set>
+#include <vector>
 #include <queue>
 #include <stack>
 #include <utility>
+#include <algorithm>
 template <class T, class U=int>
 class Graph{
     private:
@@ -25,8 +27,15 @@ class Graph{
         //Recorridos
         std::queue<T> DFS(T start);
         std::queue<T> BFS(T start);
-        std::string printDFS(T start);
+        std::string printDFS(T start); 
         std::string printBFS(T start);
+        //Descendientes / Ascendientes
+        std::set<T> descendientes(T vertice);
+        void descendientesRecursivo(T vertice, std::set<T>& queue);
+        std::set<T> ascendientes(T vertice);
+        //Campos conectados
+        bool grafoConectado();
+        int cantidadCamposConectados();
 };
 #include "Graph.hxx"
 #endif

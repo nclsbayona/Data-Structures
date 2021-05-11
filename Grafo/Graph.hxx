@@ -316,3 +316,125 @@ std::string Graph<T, U>::printBFS(T start)
     printing += "\n\n";
     return printing;
 }
+
+template <class T, class U>
+std::set<T> Graph<T, U>::descendientes(T vertice)
+{
+    bool visitedNode = false;
+    std::set<T> set;
+    if (this->buscarVertice(vertice))
+    {
+        set.insert(vertice);
+        for (typename std::map<T, std::set<U>>::iterator it_aristas = this->vertices_aristas[vertice].begin(); it_aristas != this->vertices_aristas[vertice].end(); ++it_aristas)
+        {
+            visitedNode = false;
+            for (typename std::set<T>::iterator it = set.begin(); !visitedNode && it != set.end(); ++it)
+                if ((*it) == it_aristas->first)
+                    visitedNode = true;
+            if (!visitedNode)
+            {
+                this->descendientesRecursivo(it_aristas->first, set);
+                set.insert(it_aristas->first);
+            }
+        }
+    }
+    return set;
+}
+
+template <class T, class U>
+void Graph<T, U>::descendientesRecursivo(T vertice, std::set<T> &set)
+{
+    /* bool visitedNode = false;
+    for (typename std::set<T>::iterator it = set.begin(); !visitedNode && it != set.end(); ++it)
+        if ((*it) == vertice)
+            visitedNode = true; */
+    if (set.count(vertice) == 0)
+    {
+        set.insert(vertice);
+        for (typename std::map<T, std::set<U>>::iterator it = this->vertices_aristas[vertice].begin(); it != this->vertices_aristas[vertice].end(); ++it)
+        {
+            /* for (typename std::set<T>::iterator it2 = set.begin(); !visitedNode && it2 != set.end(); ++it2)
+                if ((*it2) == it->first)
+                    visitedNode = true; */
+
+            if (set.count(it->first) == 0)
+            {
+                this->descendientesRecursivo(it->first, set);
+                set.insert(it->first);
+            }
+        }
+    }
+}
+
+template <class T, class U>
+std::set<T> Graph<T, U>::ascendientes(T vertice)
+{
+    bool visitedNode = false;
+    std::set<T> set;
+    if (this->buscarVertice(vertice))
+    {
+        set.insert(vertice);
+        for (typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
+        {
+            if (set.count(it_vertices->first) == 0)
+            {
+                if (this->descendientes(it_vertices->first).count(vertice) > 0)
+                    set.insert(it_vertices->first);
+            }
+        }
+    }
+    return set;
+}
+
+template <class T, class U>
+bool Graph<T, U>::grafoConectado()
+{
+    bool connected = true;
+    typename std::set<T> ascendientes;
+    typename std::set<T> descendientes;
+    for (typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices = this->vertices_aristas.begin(); connected && it_vertices != this->vertices_aristas.end(); ++it_vertices)
+    {
+        typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices2 = this->vertices_aristas.begin();
+        ascendientes = this->ascendientes(it_vertices->first);
+        descendientes = this->descendientes(it_vertices->first);
+        for (; connected && it_vertices2 != this->vertices_aristas.end(); ++it_vertices2)
+        {
+            if (ascendientes.count(it_vertices2->first) != 1 || descendientes.count(it_vertices2->first) != 1)
+                connected = false;
+        }
+    }
+    return connected;
+}
+
+//Preguntar ¿?
+template <class T, class U>
+int Graph<T, U>::cantidadCamposConectados()
+{
+    int connected = 0;
+    if (this->grafoConectado())
+        connected += 1;
+    else
+    {
+        
+        typedef typename std::set<T> mySet;
+        typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices;
+        mySet ascendientes, missing, descendientes;
+        typedef typename std::vector<T> vector;
+        vector campo;
+        typename vector::iterator campo_iterator;
+        T node;
+        for (it_vertices = this->vertices_aristas.begin();it_vertices != this->vertices_aristas.end(); ++it_vertices)
+            missing.insert(it_vertices->first);
+        while (!missing.empty()){
+            campo.clear();
+            node=*(missing.begin());
+            ascendientes=this->ascendientes(node);
+            descendientes=this->descendientes(node);
+            std::set_intersection(ascendientes.begin(), ascendientes.end(), descendientes.begin(), descendientes.end(), std::back_inserter(campo));
+            for (campo_iterator=campo.begin(); campo_iterator!=campo.end(); campo_iterator++)
+                missing.erase(*campo_iterator);
+            connected+=1;
+        }
+    }
+    return connected;
+}
