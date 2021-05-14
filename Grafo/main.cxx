@@ -77,5 +77,11 @@ int main()
     cout << "Arista puente 4 a 5, valor 0 (SI): " << myGraph3.aristaPuente(4, 5) << endl;
     cout << "Arista puente 6 a 7, valor 0 (NO): " << myGraph3.aristaPuente(6, 7) << endl;
     cout << myGraph3.printGraph();
+    cout << "Grado de entrada nodo 7 (1): " << myGraph3.gradoEntrada(7) << endl;
+    cout << "Grado de salida nodo 7 (0): " << myGraph3.gradoSalida(7) << endl;
+    cout << "Grado de nodo 7 (1): " << myGraph3.grado(7) << endl;
+    cout << "Grado de entrada nodo 6 (1): " << myGraph3.gradoEntrada(6) << endl;
+    cout << "Grado de salida nodo 6 (2): " << myGraph3.gradoSalida(6) << endl;
+    cout << "Grado de nodo 6 (3): " << myGraph3.grado(6) << endl;
     return 0;
 }

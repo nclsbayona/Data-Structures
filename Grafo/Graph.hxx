@@ -450,7 +450,7 @@ bool Graph<T, U>::aristaPuente(T start, T end, U valor)
         this->eliminarArista(end, start, valor);
     if (this->cantidadCamposConectados() > camposC)
         connected = true;
-    if (dirc)
+    if (!dirc)
         this->agregarArista(start, end, valor, 1);
     else
         this->agregarArista(start, end, valor, 0);
