@@ -406,7 +406,6 @@ bool Graph<T, U>::grafoConectado()
     return connected;
 }
 
-//Preguntar ¿?
 template <class T, class U>
 int Graph<T, U>::cantidadCamposConectados()
 {
@@ -415,7 +414,7 @@ int Graph<T, U>::cantidadCamposConectados()
         connected += 1;
     else
     {
-        
+
         typedef typename std::set<T> mySet;
         typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices;
         mySet ascendientes, missing, descendientes;
@@ -423,18 +422,37 @@ int Graph<T, U>::cantidadCamposConectados()
         vector campo;
         typename vector::iterator campo_iterator;
         T node;
-        for (it_vertices = this->vertices_aristas.begin();it_vertices != this->vertices_aristas.end(); ++it_vertices)
+        for (it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
             missing.insert(it_vertices->first);
-        while (!missing.empty()){
+        while (!missing.empty())
+        {
             campo.clear();
-            node=*(missing.begin());
-            ascendientes=this->ascendientes(node);
-            descendientes=this->descendientes(node);
+            node = *(missing.begin());
+            ascendientes = this->ascendientes(node);
+            descendientes = this->descendientes(node);
             std::set_intersection(ascendientes.begin(), ascendientes.end(), descendientes.begin(), descendientes.end(), std::back_inserter(campo));
-            for (campo_iterator=campo.begin(); campo_iterator!=campo.end(); campo_iterator++)
+            for (campo_iterator = campo.begin(); campo_iterator != campo.end(); campo_iterator++)
                 missing.erase(*campo_iterator);
-            connected+=1;
+            connected += 1;
         }
     }
+    return connected;
+}
+
+template <class T, class U>
+bool Graph<T, U>::aristaPuente(T start, T end, U valor)
+{
+    bool connected = false;
+    bool dirc = false;
+    int camposC = this->cantidadCamposConectados();
+    this->eliminarArista(start, end, valor);
+    if (this->buscarArista(end, start, valor))
+        this->eliminarArista(end, start, valor);
+    if (this->cantidadCamposConectados() > camposC)
+        connected = true;
+    if (dirc)
+        this->agregarArista(start, end, valor, 1);
+    else
+        this->agregarArista(start, end, valor, 0);
     return connected;
 }

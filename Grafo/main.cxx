@@ -62,7 +62,7 @@ int main()
     myGraph3.agregarArista(4, 12, 0);
     myGraph3.agregarArista(5, 6, 0);
     myGraph3.agregarArista(6, 7, 0, 1);
-    cout<<myGraph3.printGraph();
+    cout << myGraph3.printGraph();
     set<int> set = myGraph3.descendientes(7);
     cout << "Descendientes de 7\n";
     for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
@@ -71,8 +71,10 @@ int main()
     cout << "\nAscendientes de 7\n";
     for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
         cout << (*it) << ' ';
-    cout<<"\nGrafo conectado: "<<myGraph3.grafoConectado()<<endl;
-    cout<<myGraph3.printGraph();
-    cout<<"Cantidad campos conectados "<<myGraph3.cantidadCamposConectados()<<endl;
+    cout << "\nGrafo conectado: " << myGraph3.grafoConectado() << endl;
+    cout << myGraph3.printGraph();
+    cout << "Cantidad campos conectados " << myGraph3.cantidadCamposConectados() << endl;
+    cout << "Arista puente 4 a 5, valor 0: " << myGraph3.aristaPuente(4, 5) << endl;
+    cout << myGraph3.printGraph();
     return 0;
 }
