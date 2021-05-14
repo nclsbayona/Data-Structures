@@ -458,28 +458,81 @@ bool Graph<T, U>::aristaPuente(T start, T end, U valor)
 }
 
 template <class T, class U>
-int Graph<T, U>::gradoSalida(T vertice){
-    int grado=0;
-    typename std::map<T, std::set<U>>::iterator it=this->vertices_aristas[vertice].begin();
-    for (;it!=this->vertices_aristas[vertice].end();++it)
-        grado+=(it)->second.size();
+int Graph<T, U>::gradoSalida(T vertice)
+{
+    int grado = 0;
+    typename std::map<T, std::set<U>>::iterator it = this->vertices_aristas[vertice].begin();
+    for (; it != this->vertices_aristas[vertice].end(); ++it)
+        grado += (it)->second.size();
     return grado;
 }
 
 template <class T, class U>
-int Graph<T, U>::gradoEntrada(T vertice){
-    int grado=0;
-    typename std::map<T, std::map<T, std::set<U>>>::iterator it=this->vertices_aristas.begin();
+int Graph<T, U>::gradoEntrada(T vertice)
+{
+    int grado = 0;
+    typename std::map<T, std::map<T, std::set<U>>>::iterator it = this->vertices_aristas.begin();
     typename std::map<T, std::set<U>>::iterator it2;
-    for (;it!=this->vertices_aristas.end();++it){
-        it2=it->second.find(vertice);
-        if (it2!=it->second.end())
-            grado+=it->second[vertice].size();
+    for (; it != this->vertices_aristas.end(); ++it)
+    {
+        it2 = it->second.find(vertice);
+        if (it2 != it->second.end())
+            grado += it->second[vertice].size();
     }
     return grado;
 }
 
 template <class T, class U>
-int Graph<T, U>::grado(T vertice){
-    return this->gradoEntrada(vertice)+this->gradoSalida(vertice);
+int Graph<T, U>::grado(T vertice)
+{
+    int grado=this->gradoEntrada(vertice) + this->gradoSalida(vertice);
+    if (!this->dirigido)
+        grado/=2;
+    return grado;
+}
+
+template <class T, class U>
+std::vector<T> Graph<T, U>::prim(T start)
+{
+    //Las aristas (pesos) deben estar ordenados
+    std::set<T> vnew;
+    std::vector<T> enew;
+    typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices;
+    typename std::map<T, std::set<U>>::iterator it_aristas;
+    std::pair<T, U> weight;
+    U actual_weight;
+    vnew.insert(start);
+    enew.push_back(start);
+    while (this->vertices_aristas.size() != vnew.size())
+    {
+        //Hallar el menor (u,v) que tenga u visitado y v no
+        //Buscar U:
+        weight.second = -273;
+        it_vertices = this->vertices_aristas.begin();
+        for (; it_vertices != this->vertices_aristas.end(); ++it_vertices)
+        {
+            //U en vnew
+            if (vnew.count(it_vertices->first) != 0)
+            {
+                it_aristas = this->vertices_aristas[it_vertices->first].begin();
+                for (; it_aristas != this->vertices_aristas[it_vertices->first].end(); ++it_aristas)
+                {
+                    //V no en vnew
+                    if (vnew.count(it_aristas->first) == 0)
+                    {
+                        actual_weight = *(it_aristas->second.begin());
+                        if (((actual_weight < weight.second || weight.second == -273))||(((weight.second != -273) && (actual_weight == weight.second))&&(weight.first>it_aristas->first)))
+                        {
+                            //La última condición es para orden ascendente
+                            weight.first = it_aristas->first;
+                            weight.second = actual_weight;
+                        }
+                    }
+                }
+            }
+        }
+        enew.push_back(weight.first);
+        vnew.insert(weight.first);
+    }
+    return enew;
 }

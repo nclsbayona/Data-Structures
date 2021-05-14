@@ -2,8 +2,10 @@
 #define Graph_H
 #include <map>
 #include <set>
+#include <unordered_set>
 #include <vector>
 #include <queue>
+#include <cmath>
 #include <stack>
 #include <utility>
 #include <algorithm>
@@ -40,7 +42,9 @@ class Graph{
         int gradoSalida(T vertice);
         int gradoEntrada(T vertice);
         int grado(T vertice);
-        //Falta PRIM; KRUSKAL: DIJKSTRA; EULER; LO QUE HAYA PRESENTACION 19, 20
+        //Recorridos
+        std::vector<T> prim(T start);
+        //Falta KRUSKAL: DIJKSTRA; EULER; LO QUE HAYA PRESENTACION 19, 20
 };
 #include "Graph.hxx"
 #endif

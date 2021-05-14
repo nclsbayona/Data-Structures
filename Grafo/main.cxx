@@ -63,13 +63,13 @@ int main()
     myGraph3.agregarArista(5, 6, 0);
     myGraph3.agregarArista(6, 7, 0, 1);
     cout << myGraph3.printGraph();
-    set<int> set = myGraph3.descendientes(7);
+    set<int> mySet = myGraph3.descendientes(7);
     cout << "Descendientes de 7\n";
-    for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
+    for (std::set<int>::iterator it = mySet.begin(); it != mySet.end(); ++it)
         cout << (*it) << ' ';
-    set = myGraph3.ascendientes(7);
+    mySet = myGraph3.ascendientes(7);
     cout << "\nAscendientes de 7\n";
-    for (std::set<int>::iterator it = set.begin(); it != set.end(); ++it)
+    for (std::set<int>::iterator it = mySet.begin(); it != mySet.end(); ++it)
         cout << (*it) << ' ';
     cout << "\nGrafo conectado: " << myGraph3.grafoConectado() << endl;
     cout << myGraph3.printGraph();
@@ -83,5 +83,49 @@ int main()
     cout << "Grado de entrada nodo 6 (1): " << myGraph3.gradoEntrada(6) << endl;
     cout << "Grado de salida nodo 6 (2): " << myGraph3.gradoSalida(6) << endl;
     cout << "Grado de nodo 6 (3): " << myGraph3.grado(6) << endl;
+    //New 3 PG 42 - Presentación 19
+    Graph<char, int> myGraph4;
+    myGraph4.agregarArista('A', 'B', 4);
+    myGraph4.agregarArista('A', 'H', 8);
+    myGraph4.agregarArista('B', 'C', 8);
+    myGraph4.agregarArista('B', 'H', 11);
+    myGraph4.agregarArista('C', 'D', 7);
+    myGraph4.agregarArista('C', 'I', 2);
+    myGraph4.agregarArista('C', 'F', 4);
+    myGraph4.agregarArista('D', 'E', 9);
+    myGraph4.agregarArista('D', 'F', 14);
+    myGraph4.agregarArista('E', 'F', 10);
+    myGraph4.agregarArista('G', 'F', 2);
+    myGraph4.agregarArista('G', 'H', 1);
+    myGraph4.agregarArista('I', 'H', 7);
+    myGraph4.agregarArista('G', 'I', 6);
+    cout << myGraph4.printGraph();
+    vector<char> new_set = myGraph4.prim('A');
+    cout << "Prim de A\n";
+    for (vector<char>::iterator it = new_set.begin(); it != new_set.end(); ++it)
+        cout << *it<<" ";
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    //New 4 PG 45 - Presentación 19 && PG  - Presentacion 20
+    Graph<int, int> myGraph5(1);
+    myGraph5.agregarArista(0, 1, 5);
+    myGraph5.agregarArista(0, 4, 9);
+    myGraph5.agregarArista(0, 7, 8);
+    myGraph5.agregarArista(1, 7, 4);
+    myGraph5.agregarArista(1, 2, 12);
+    myGraph5.agregarArista(1, 3, 15);
+    myGraph5.agregarArista(3, 6, 9);
+    myGraph5.agregarArista(2, 3, 3);
+    myGraph5.agregarArista(2, 6, 11);
+    myGraph5.agregarArista(5, 2, 1);
+    myGraph5.agregarArista(5, 6, 13);
+    myGraph5.agregarArista(7, 2, 7);
+    myGraph5.agregarArista(7, 5, 6);
+    myGraph5.agregarArista(4, 7, 5);
+    myGraph5.agregarArista(4, 5, 4);
+    myGraph5.agregarArista(4, 6, 20);
+    vector <int> prim0=myGraph5.prim(0);
+    cout << "Prim de 0\n";
+    for (vector<int>::iterator it = prim0.begin(); it != prim0.end(); ++it)
+        cout << *it<<" ";
     return 0;
 }
