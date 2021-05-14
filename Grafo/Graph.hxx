@@ -443,10 +443,10 @@ template <class T, class U>
 bool Graph<T, U>::aristaPuente(T start, T end, U valor)
 {
     bool connected = false;
-    bool dirc = false;
+    bool dirc = this->buscarArista(end, start, valor);
     int camposC = this->cantidadCamposConectados();
     this->eliminarArista(start, end, valor);
-    if (this->buscarArista(end, start, valor))
+    if (dirc)
         this->eliminarArista(end, start, valor);
     if (this->cantidadCamposConectados() > camposC)
         connected = true;
@@ -455,4 +455,31 @@ bool Graph<T, U>::aristaPuente(T start, T end, U valor)
     else
         this->agregarArista(start, end, valor, 0);
     return connected;
+}
+
+template <class T, class U>
+int Graph<T, U>::gradoSalida(T vertice){
+    int grado=0;
+    typename std::map<T, std::set<U>>::iterator it=this->vertices_aristas[vertice].begin();
+    for (;it!=this->vertices_aristas[vertice].end();++it)
+        grado+=(it)->second.size();
+    return grado;
+}
+
+template <class T, class U>
+int Graph<T, U>::gradoEntrada(T vertice){
+    int grado=0;
+    typename std::map<T, std::map<T, std::set<U>>>::iterator it=this->vertices_aristas.begin();
+    typename std::map<T, std::set<U>>::iterator it2;
+    for (;it!=this->vertices_aristas.end();++it){
+        it2=it->second.find(vertice);
+        if (it2!=it->second.end())
+            grado+=it->second[vertice].size();
+    }
+    return grado;
+}
+
+template <class T, class U>
+int Graph<T, U>::grado(T vertice){
+    return this->gradoEntrada(vertice)+this->gradoSalida(vertice);
 }

@@ -37,6 +37,9 @@ class Graph{
         bool grafoConectado();
         int cantidadCamposConectados();
         bool aristaPuente(T start, T end, U valor=0);
+        int gradoSalida(T vertice);
+        int gradoEntrada(T vertice);
+        int grado(T vertice);
         //Falta PRIM; KRUSKAL: DIJKSTRA; EULER; LO QUE HAYA PRESENTACION 19, 20
 };
 #include "Graph.hxx"

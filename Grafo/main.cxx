@@ -74,7 +74,8 @@ int main()
     cout << "\nGrafo conectado: " << myGraph3.grafoConectado() << endl;
     cout << myGraph3.printGraph();
     cout << "Cantidad campos conectados " << myGraph3.cantidadCamposConectados() << endl;
-    cout << "Arista puente 4 a 5, valor 0: " << myGraph3.aristaPuente(4, 5) << endl;
+    cout << "Arista puente 4 a 5, valor 0 (SI): " << myGraph3.aristaPuente(4, 5) << endl;
+    cout << "Arista puente 6 a 7, valor 0 (NO): " << myGraph3.aristaPuente(6, 7) << endl;
     cout << myGraph3.printGraph();
     return 0;
 }
