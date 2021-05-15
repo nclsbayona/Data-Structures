@@ -103,7 +103,7 @@ int main()
     vector<char> new_set = myGraph4.prim('A');
     cout << "Prim de A\n";
     for (vector<char>::iterator it = new_set.begin(); it != new_set.end(); ++it)
-        cout << *it<<" ";
+        cout << *it << " ";
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     //New 4 PG 45 - Presentación 19 && PG  - Presentacion 20
     Graph<int, int> myGraph5(1);
@@ -123,18 +123,34 @@ int main()
     myGraph5.agregarArista(4, 7, 5);
     myGraph5.agregarArista(4, 5, 4);
     myGraph5.agregarArista(4, 6, 20);
-    vector <int> prim0=myGraph5.prim(0);
+    vector<int> prim0 = myGraph5.prim(0);
     cout << "Prim de 0\n";
     for (vector<int>::iterator it = prim0.begin(); it != prim0.end(); ++it)
-        cout << *it<<" ";
-    cout<<"\n\n\n";
-    vector <std::pair<int, std::pair<int, int>>> kruskal=myGraph5.kruskal();
+        cout << *it << " ";
+    cout << "\n\n\n";
+    vector<std::pair<int, std::pair<int, int>>> kruskal = myGraph5.kruskal();
     cout << "Kruskal\n";
-    for (vector <std::pair<int, std::pair<int, int>>>::iterator it = kruskal.begin(); it != kruskal.end(); ++it)
-        cout << "("<<it->second.first<<" "<<it->second.second<<") --> "<<it->first<<"\t";
-    map<int, pair<int, int>> dijkstra=myGraph5.dijkstra(0);
-    cout<<"\n\n\nDijkstra\n";
+    for (vector<std::pair<int, std::pair<int, int>>>::iterator it = kruskal.begin(); it != kruskal.end(); ++it)
+        cout << "(" << it->second.first << " " << it->second.second << ") --> " << it->first << "\t";
+    map<int, pair<int, int>> dijkstra = myGraph5.dijkstra(0);
+    cout << "\n\n\nDijkstra\n";
     for (typename std::map<int, std::pair<int, int>>::iterator it = dijkstra.begin(); it != dijkstra.end(); ++it)
         std::cout << "| " << it->first << ": (" << it->second.first << ", [" << it->second.second << "])\n";
+    //New 5 YT
+    Graph<char, int> myGraph6;
+    myGraph6.agregarArista('s', 'b', 4);
+    myGraph6.agregarArista('s', 'c', 2);
+    myGraph6.agregarArista('b', 'd', 5);
+    myGraph6.agregarArista('b', 'c', 1);
+    myGraph6.agregarArista('c', 'd', 8);
+    myGraph6.agregarArista('c', 'e', 10);
+    myGraph6.agregarArista('d', 't', 6);
+    myGraph6.agregarArista('d', 'e', 2);
+    myGraph6.agregarArista('e', 't', 2);
+    map<char, pair<char, int>> dijkstra2 = myGraph6.dijkstra('s');
+
+    cout << "\n\n\nDijkstra\n";
+    for (typename map<char, pair<char, int>>::iterator it = dijkstra2.begin(); it != dijkstra2.end(); ++it)
+        std::cout << "| " << it->first << ": (" << it->second.first << ", [" << it->second.second << "])|\n";
     return 0;
 }

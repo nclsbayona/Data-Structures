@@ -614,6 +614,7 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
                     dist[it_arista->first].second = actual_weight + dist[start].second;
                 }
             }
+            std::cout << "\n\nJust visited " << start << ' ';
             visited.insert(start);
             //Chequear el menor
             //Ubicar start en uno no visitado, comparar
@@ -626,6 +627,10 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
                 if (visited.count(it_pesos_acumulados->first)==0&&dist[it_pesos_acumulados->first].second<dist[start].second)
                     start=it_pesos_acumulados->first;
             }
+            std::cout << "Now visiting " << start << '\n';
+            for (typename std::map<T, std::pair<T, U>>::iterator it = dist.begin(); it != dist.end(); ++it)
+                std::cout << "| " << it->first << ": (" << it->second.first << ", " << it->second.second << ")\n";
+            std::cin >> actual_weight;
         }
     }
     return dist;
