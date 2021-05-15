@@ -485,9 +485,9 @@ int Graph<T, U>::gradoEntrada(T vertice)
 template <class T, class U>
 int Graph<T, U>::grado(T vertice)
 {
-    int grado=this->gradoEntrada(vertice) + this->gradoSalida(vertice);
+    int grado = this->gradoEntrada(vertice) + this->gradoSalida(vertice);
     if (!this->dirigido)
-        grado/=2;
+        grado /= 2;
     return grado;
 }
 
@@ -521,7 +521,7 @@ std::vector<T> Graph<T, U>::prim(T start)
                     if (vnew.count(it_aristas->first) == 0)
                     {
                         actual_weight = *(it_aristas->second.begin());
-                        if (((actual_weight < weight.second || weight.second == -273))||(((weight.second != -273) && (actual_weight == weight.second))&&(weight.first>it_aristas->first)))
+                        if (((actual_weight < weight.second || weight.second == -273)) || (((weight.second != -273) && (actual_weight == weight.second)) && (weight.first > it_aristas->first)))
                         {
                             //La última condición es para orden ascendente
                             weight.first = it_aristas->first;
@@ -535,4 +535,98 @@ std::vector<T> Graph<T, U>::prim(T start)
         vnew.insert(weight.first);
     }
     return enew;
+}
+
+template <class T, class U>
+std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
+{
+    typedef typename std::pair<U, std::pair<T, T>> arista;
+    typedef typename std::map<T, std::set<U>> _aristas;
+    typedef typename std::map<T, _aristas> vert_aristas;
+    typename std::map<T, std::vector<U>> vertices;
+    typename std::vector<arista> aristas;
+    typename std::vector<arista> kruskal;
+    arista *arista_sola;
+    for (typename vert_aristas::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
+    {
+        vertices[it_vertices->first].push_back(it_vertices->first);
+        for (typename _aristas::iterator it_aristas = this->vertices_aristas[it_vertices->first].begin(); it_aristas != this->vertices_aristas[it_vertices->first].end(); ++it_aristas)
+        {
+            for (typename std::set<U>::iterator it_pesos = this->vertices_aristas[it_vertices->first][it_aristas->first].begin(); it_pesos != this->vertices_aristas[it_vertices->first][it_aristas->first].end(); it_pesos++)
+            {
+                arista_sola = new arista;
+                arista_sola->first = (*it_pesos);
+                arista_sola->second.first = (it_vertices->first);
+                arista_sola->second.second = (it_aristas->first);
+                aristas.push_back(*(arista_sola));
+            }
+        }
+    }
+    sort(aristas.begin(), aristas.end());
+    //Listo para empezar
+    for (typename std::map<T, std::vector<U>>::iterator it = vertices.begin(); it != vertices.end(); ++it)
+    {
+        std::cout << "| " << it->first << ": ";
+        for (typename std::vector<U>::iterator it2 = vertices[it->first].begin(); it2 != vertices[it->first].end(); ++it2)
+        {
+            std::cout << *it2 << " ";
+        }
+        std::cout << "|";
+    }
+    /* while (!aristas.empty())
+    {
+    } */
+    return kruskal;
+}
+
+template <class T, class U>
+std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
+{
+    std::map<T, std::pair<T, U>> dist;
+    std::set<T> visited;
+    std::pair<T, U> *pair;
+    U actual_weight;
+    typename std::map<T, std::set<U>>::iterator it_arista;
+    for (typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
+    {
+        //INFINITY
+        pair = new std::pair<T, U>;
+        pair->first = it_vertices->first;
+        pair->second = 451;
+        dist[it_vertices->first] = (*(pair));
+    }
+    pair = new std::pair<T, U>;
+    pair->first = start;
+    pair->second = 0;
+    dist[start] = (*(pair));
+    typename std::map<T, std::pair<T, U>>::iterator it_pesos_acumulados;
+    while (dist.size() != visited.size())
+    {
+        if (visited.count(start) == 0)
+        {
+            it_arista = this->vertices_aristas[start].begin();
+            for (; it_arista != this->vertices_aristas[start].end(); ++it_arista)
+            {
+                actual_weight = *(this->vertices_aristas[start][it_arista->first].begin());
+                if (dist[it_arista->first].second > actual_weight + dist[start].second)
+                {
+                    dist[it_arista->first].first = start;
+                    dist[it_arista->first].second = actual_weight + dist[start].second;
+                }
+            }
+            visited.insert(start);
+            //Chequear el menor
+            //Ubicar start en uno no visitado, comparar
+            it_pesos_acumulados=dist.begin();
+            while (visited.count(it_pesos_acumulados->first)!=0)
+                ++it_pesos_acumulados;
+            start=it_pesos_acumulados->first;    
+            for (it_pesos_acumulados = dist.begin(); it_pesos_acumulados != dist.end(); it_pesos_acumulados++)
+            {
+                if (visited.count(it_pesos_acumulados->first)==0&&dist[it_pesos_acumulados->first].second<dist[start].second)
+                    start=it_pesos_acumulados->first;
+            }
+        }
+    }
+    return dist;
 }

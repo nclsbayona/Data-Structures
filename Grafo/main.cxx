@@ -127,5 +127,14 @@ int main()
     cout << "Prim de 0\n";
     for (vector<int>::iterator it = prim0.begin(); it != prim0.end(); ++it)
         cout << *it<<" ";
+    cout<<"\n\n\n";
+    vector <std::pair<int, std::pair<int, int>>> kruskal=myGraph5.kruskal();
+    cout << "Kruskal\n";
+    for (vector <std::pair<int, std::pair<int, int>>>::iterator it = kruskal.begin(); it != kruskal.end(); ++it)
+        cout << "("<<it->second.first<<" "<<it->second.second<<") --> "<<it->first<<"\t";
+    map<int, pair<int, int>> dijkstra=myGraph5.dijkstra(0);
+    cout<<"\n\n\nDijkstra\n";
+    for (typename std::map<int, std::pair<int, int>>::iterator it = dijkstra.begin(); it != dijkstra.end(); ++it)
+        std::cout << "| " << it->first << ": (" << it->second.first << ", [" << it->second.second << "])\n";
     return 0;
 }

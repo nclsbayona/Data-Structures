@@ -44,6 +44,8 @@ class Graph{
         int grado(T vertice);
         //Recorridos
         std::vector<T> prim(T start);
+        std::vector<std::pair<U, std::pair<T, T>>> kruskal();
+        std::map<T, std::pair<T, U>> dijkstra(T start);
         //Falta KRUSKAL: DIJKSTRA; EULER; LO QUE HAYA PRESENTACION 19, 20
 };
 #include "Graph.hxx"
