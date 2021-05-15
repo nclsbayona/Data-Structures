@@ -577,7 +577,7 @@ std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
     while (!aristas.empty())
     {
         it_kruskal=aristas.begin();
-        arista_sola=it_kruskal;
+        arista_sola=&(*(it_kruskal));
         aristas.erase(it_kruskal);
     }
     return kruskal;
@@ -622,13 +622,9 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
             visited.insert(start);
             //Chequear el menor
             //Ubicar start en uno no visitado, comparar
-            it_pesos_acumulados=dist.begin();
-            while (visited.count(it_pesos_acumulados->first)!=0)
-                ++it_pesos_acumulados;
-            start=it_pesos_acumulados->first;    
             for (it_pesos_acumulados = dist.begin(); it_pesos_acumulados != dist.end(); it_pesos_acumulados++)
             {
-                if (visited.count(it_pesos_acumulados->first)==0&&dist[it_pesos_acumulados->first].second<dist[start].second)
+                if ((visited.count(it_pesos_acumulados->first)==0&&dist[it_pesos_acumulados->first].second<dist[start].second)||(visited.count(start)!=0))
                     start=it_pesos_acumulados->first;
             }
             std::cout << "Now visiting " << start << '\n';
