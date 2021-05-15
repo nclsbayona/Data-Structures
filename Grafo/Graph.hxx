@@ -546,6 +546,7 @@ std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
     typename std::map<T, std::vector<U>> vertices;
     typename std::vector<arista> aristas;
     typename std::vector<arista> kruskal;
+    typename std::vector<arista>::iterator  it_kruskal;
     arista *arista_sola;
     for (typename vert_aristas::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
     {
@@ -573,9 +574,12 @@ std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
         }
         std::cout << "|";
     }
-    /* while (!aristas.empty())
+    while (!aristas.empty())
     {
-    } */
+        it_kruskal=aristas.begin();
+        arista_sola=it_kruskal;
+        aristas.erase(it_kruskal);
+    }
     return kruskal;
 }
 
