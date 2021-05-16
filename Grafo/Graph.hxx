@@ -507,6 +507,7 @@ std::vector<T> Graph<T, U>::prim(T start)
     {
         //Hallar el menor (u,v) que tenga u visitado y v no
         //Buscar U:
+        //ABSOLUTE ZERO -273.15K
         weight.second = -273;
         it_vertices = this->vertices_aristas.begin();
         for (; it_vertices != this->vertices_aristas.end(); ++it_vertices)
@@ -538,19 +539,23 @@ std::vector<T> Graph<T, U>::prim(T start)
 }
 
 template <class T, class U>
-std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
+std::set<T> Graph<T, U>::kruskal()
 {
     typedef typename std::pair<U, std::pair<T, T>> arista;
     typedef typename std::map<T, std::set<U>> _aristas;
-    typedef typename std::map<T, _aristas> vert_aristas;
-    typename std::map<T, std::vector<arista>> vertices;
     typename std::vector<arista> aristas;
-    typename std::vector<arista> kruskal;
-    typename std::vector<arista>::iterator it_kruskal;
+    typedef typename std::set<T> mst;
+    std::vector<mst> trees;
+    typename std::vector<mst>::iterator trees_it;
+    mst* generic_tree;
+    mst kruskal;
+    typename mst::iterator kruskal_it;
     arista *arista_sola;
-    for (typename vert_aristas::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
+    for (typename std::map<T, _aristas>::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
     {
-        vertices[it_vertices->first]=(*(new std::vector<arista>));
+        generic_tree=new mst;
+        generic_tree->insert(it_vertices->first);
+        trees.push_back(*generic_tree);
         for (typename _aristas::iterator it_aristas = this->vertices_aristas[it_vertices->first].begin(); it_aristas != this->vertices_aristas[it_vertices->first].end(); ++it_aristas)
         {
             for (typename std::set<U>::iterator it_pesos = this->vertices_aristas[it_vertices->first][it_aristas->first].begin(); it_pesos != this->vertices_aristas[it_vertices->first][it_aristas->first].end(); it_pesos++)
@@ -565,19 +570,7 @@ std::vector<std::pair<U, std::pair<T, T>>> Graph<T, U>::kruskal()
     }
     sort(aristas.begin(), aristas.end());
     //Listo para empezar
-    for (typename std::map<T, std::vector<arista>>::iterator it = vertices.begin(); it != vertices.end(); ++it)
-    {
-        std::cout << "| " << it->first << ": ";
-        for (typename std::vector<arista>::iterator it2 = vertices[it->first].begin(); it2 != vertices[it->first].end(); ++it2)
-            std::cout << "Peso " << (it2->first) << " Arista: ("<<(it2->second.first)<<", "<<(it2->second.second)<<") | ";
-        std::cout << "|";
-    }
-    while (!aristas.empty())
-    {
-        it_kruskal = aristas.begin();
-        arista_sola = &(*(it_kruskal));
-        aristas.erase(it_kruskal);
-    }
+
     return kruskal;
 }
 
@@ -591,7 +584,7 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
     typename std::map<T, std::set<U>>::iterator it_arista;
     for (typename std::map<T, std::map<T, std::set<U>>>::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
     {
-        //INFINITY
+        //INFINITY -- FAHRENHEIT 451 <3
         pair = new std::pair<T, U>;
         pair->first = it_vertices->first;
         pair->second = 451;
@@ -616,7 +609,6 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
                     dist[it_arista->first].second = actual_weight + dist[start].second;
                 }
             }
-            std::cout << "\n\nJust visited " << start << ' ';
             visited.insert(start);
             //Chequear el menor
             //Ubicar start en uno no visitado, comparar
@@ -625,10 +617,6 @@ std::map<T, std::pair<T, U>> Graph<T, U>::dijkstra(T start)
                 if ((visited.count(it_pesos_acumulados->first) == 0 && dist[it_pesos_acumulados->first].second < dist[start].second) || (visited.count(start) != 0))
                     start = it_pesos_acumulados->first;
             }
-            std::cout << "Now visiting " << start << '\n';
-            for (typename std::map<T, std::pair<T, U>>::iterator it = dist.begin(); it != dist.end(); ++it)
-                std::cout << "| " << it->first << ": (" << it->second.first << ", " << it->second.second << ")\n";
-            std::cin >> actual_weight;
         }
     }
     return dist;
