@@ -539,23 +539,26 @@ std::vector<T> Graph<T, U>::prim(T start)
 }
 
 template <class T, class U>
-std::set<T> Graph<T, U>::kruskal()
+std::vector<T> Graph<T, U>::kruskal()
 {
     typedef typename std::pair<U, std::pair<T, T>> arista;
     typedef typename std::map<T, std::set<U>> _aristas;
+    typedef typename std::vector<T> mst;
+
     typename std::vector<arista> aristas;
-    typedef typename std::set<T> mst;
-    std::vector<mst> trees;
     typename std::vector<mst>::iterator trees_it;
-    mst* generic_tree;
-    mst kruskal;
+    typename std::vector<mst>::iterator trees_it2;
     typename mst::iterator kruskal_it;
+    mst *generic_tree;
+    std::vector<T> *kruskal;
+    std::vector<mst> trees;
     arista *arista_sola;
+
     for (typename std::map<T, _aristas>::iterator it_vertices = this->vertices_aristas.begin(); it_vertices != this->vertices_aristas.end(); ++it_vertices)
     {
-        generic_tree=new mst;
-        generic_tree->insert(it_vertices->first);
-        trees.push_back(*generic_tree);
+        generic_tree = new mst;
+        generic_tree->push_back(it_vertices->first);
+        trees.push_back(*(generic_tree));
         for (typename _aristas::iterator it_aristas = this->vertices_aristas[it_vertices->first].begin(); it_aristas != this->vertices_aristas[it_vertices->first].end(); ++it_aristas)
         {
             for (typename std::set<U>::iterator it_pesos = this->vertices_aristas[it_vertices->first][it_aristas->first].begin(); it_pesos != this->vertices_aristas[it_vertices->first][it_aristas->first].end(); it_pesos++)
@@ -569,9 +572,14 @@ std::set<T> Graph<T, U>::kruskal()
         }
     }
     sort(aristas.begin(), aristas.end());
-    //Listo para empezar
-
-    return kruskal;
+    int a;
+    std::cin >> a;
+    arista_sola = &(*aristas.begin());
+    while (!aristas.empty())
+    {
+        
+    }
+    return *kruskal;
 }
 
 template <class T, class U>

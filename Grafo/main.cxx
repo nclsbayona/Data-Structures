@@ -128,10 +128,10 @@ int main()
     for (vector<int>::iterator it = prim0.begin(); it != prim0.end(); ++it)
         cout << *it << " ";
     cout << "\n\n\n";
-    set<int> kruskal = myGraph5.kruskal();
+    vector<int> kruskal = myGraph5.kruskal();
     cout << "Kruskal\n";
-    for (set<int>::iterator it = kruskal.begin(); it != kruskal.end(); ++it)
-        cout << *it<<' ';
+    for (vector<int>::iterator it = kruskal.begin(); it != kruskal.end(); ++it)
+        cout << (*it)<<' ';
     cout<<endl;
     map<int, pair<int, int>> dijkstra = myGraph5.dijkstra(0);
     cout << "\n\n\nDijkstra\n";
