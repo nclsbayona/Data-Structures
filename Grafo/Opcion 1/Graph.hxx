@@ -21,7 +21,7 @@ std::string Graph<T, U>::printGraph()
         printing += std::to_string((*it_vertices).first);
         printing += ":  { ";
         it_aristas = (*it_vertices).second.begin();
-        for (; it_aristas != (*it_vertices).second.end(); ++it_aristas++)
+        for (; it_aristas != (*it_vertices).second.end(); it_aristas++)
         {
             printing += std::to_string((*it_aristas).first);
             printing += ": [";
